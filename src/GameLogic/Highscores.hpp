@@ -2,10 +2,10 @@
 #include <vector>
 #include "Options.hpp"
 
-class Highscores {
+class HighScores {
   public:
     // Konstruktor:
-    Highscores();
+    HighScores();
     // Dodawanie nowego wyniku:
     void addScore( const unsigned scoreInSeconds, const Options &currentOptions );
   private:
@@ -14,4 +14,5 @@ class Highscores {
     // Składowe:
     std::vector< std::array< std::string, 3 > > mCategories;
     std::vector< unsigned > mScores;
+    bool newHighScore;
 };
