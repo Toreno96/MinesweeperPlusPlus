@@ -23,7 +23,7 @@ void Minefield::mine( boost::random::mt19937 &generator, const std::size_t exclu
       Cell &randomCell = mCells[ randomRow ][ randomColumn ]; 
       if( randomCell.getValue() != mMineValue ) {
         randomCell.setValue( mMineValue );
-        incrementSurroundingCells( randomRow, randomColumn );
+        incrementEnclosingCells( randomRow, randomColumn );
         --minesToDispose;
       }
     }
@@ -36,7 +36,7 @@ void Minefield::uncover( const std::size_t row, const std::size_t column ) {
   if( chosenCell.getState() == CellState::covered ) {
     chosenCell.setState( CellState::uncovered );
     if( chosenCell.getValue() == 0 )
-      uncoverSurroundingCells( row, column );
+      uncoverEnclosingCells( row, column );
     else if( chosenCell.getValue() == mMineValue )
       mDetonated = true;
   }
@@ -73,9 +73,9 @@ void Minefield::incrementSingleCell( const std::size_t row, const std::size_t co
   if( currentCell.getValue() != mMineValue )
     currentCell.incrementValue();
 }
-void Minefield::incrementSurroundingCells( const std::size_t centerRow, const std::size_t centerColumn ) {
-  modifySurroundingCells( &Minefield::incrementSingleCell, centerRow, centerColumn );
+void Minefield::incrementEnclosingCells( const std::size_t centerRow, const std::size_t centerColumn ) {
+  doToEnclosingCells( &Minefield::incrementSingleCell, centerRow, centerColumn );
 }
-void Minefield::uncoverSurroundingCells( const std::size_t centerRow, const std::size_t centerColumn ) {
-  modifySurroundingCells( &Minefield::uncover, centerRow, centerColumn );
+void Minefield::uncoverEnclosingCells( const std::size_t centerRow, const std::size_t centerColumn ) {
+  doToEnclosingCells( &Minefield::uncover, centerRow, centerColumn );
 }

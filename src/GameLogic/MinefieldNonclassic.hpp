@@ -14,8 +14,8 @@ class MinefieldNonclassic : public Minefield {
     MinefieldNonclassic( const int mineValue, const CellsVector2D &cells );
     MinefieldNonclassic( const int mineValue, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Pomocnicze metody chronione:
-    tCoordinateBounds findSurroundingCellsRowsBounds( const std::size_t centerRow ) const;
-    virtual tColumnsBoundsSet findSurroundingCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const = 0;
+    tCoordinateBounds findEnclosingCellsRowsBounds( const std::size_t centerRow ) const;
+    virtual tColumnsBoundsSet findEnclosingCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const = 0;
     void modifyRow( tMemberFunction pModifyingMemberFunction, const std::size_t row, const std::size_t minColumn, const std::size_t maxColumn );
-    void modifySurroundingCells( tMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) override;
+    void doToEnclosingCells( tMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) override;
 };

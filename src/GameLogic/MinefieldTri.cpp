@@ -4,7 +4,7 @@
 MinefieldTri::MinefieldTri( const CellsVector2D &cells ) : MinefieldNonclassic( 13, cells ) {}
 MinefieldTri::MinefieldTri( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldTri( CellsVector2D( rowsCount, columnsCount, minesCount ) ) {}
 // Pomocnicze metody chronione:
-MinefieldTri::tColumnsBoundsSet MinefieldTri::findSurroundingCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const {
+MinefieldTri::tColumnsBoundsSet MinefieldTri::findEnclosingCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const {
   std::size_t minColumnTop, maxColumnTop,
               minColumnMiddle = findLowerCoordinate( centerColumn, 0, 2 ),
               maxColumnMiddle = findGreaterCoordinate( centerColumn, mColumnsCount - 1, 2 ),
