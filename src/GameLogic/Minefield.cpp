@@ -73,8 +73,12 @@ void Minefield::incrementSingleCell( const std::size_t row, const std::size_t co
     currentCell.incrementValue();
 }
 void Minefield::incrementAdjacentCells( const std::size_t centerRow, const std::size_t centerColumn ) {
-  modifyAdjacentCells( &Minefield::incrementSingleCell, centerRow, centerColumn );
+  modifyAdjacentCells( [ this ]( const std::size_t row, const std::size_t column ){
+                         this->incrementSingleCell( row, column );
+                       }, centerRow, centerColumn );
 }
 void Minefield::uncoverAdjacentCells( const std::size_t centerRow, const std::size_t centerColumn ) {
-  modifyAdjacentCells( &Minefield::uncover, centerRow, centerColumn );
+  modifyAdjacentCells( [ this ]( const std::size_t row, const std::size_t column ){
+                         this->uncover( row, column );
+                       }, centerRow, centerColumn );
 }

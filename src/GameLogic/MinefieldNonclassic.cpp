@@ -11,7 +11,7 @@ MinefieldNonclassic::tCoordinateBounds MinefieldNonclassic::findAdjacentCellsRow
 }
 void MinefieldNonclassic::modifyRow( tCellModifyingMemberFunction pModifyingMemberFunction, const std::size_t row, const std::size_t minColumn, const std::size_t maxColumn ) {
   for( std::size_t column = minColumn; column <= maxColumn; ++column )
-    ( this->*pModifyingMemberFunction )( row, column );
+    pModifyingMemberFunction( row, column );
 }
 void MinefieldNonclassic::modifyAdjacentCells( tCellModifyingMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) {
   auto rowsBounds = findAdjacentCellsRowsBounds( centerRow );

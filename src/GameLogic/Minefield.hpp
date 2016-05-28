@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
 #include "CellsVector2D.hpp"
@@ -19,7 +20,7 @@ class Minefield : public CellsVector2D {
     void unflag( const std::size_t row, const std::size_t column );
   protected:
     // Chronione typedefy:
-    typedef void ( Minefield:: *tCellModifyingMemberFunction )( const std::size_t row, const std::size_t column );
+    typedef std::function< void( const std::size_t, const std::size_t ) > tCellModifyingMemberFunction;
     // Konstruktor:
     Minefield( const int mineValue, const CellsVector2D &cells );
     // Pomocniczne metody chronione:

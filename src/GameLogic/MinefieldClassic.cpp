@@ -9,5 +9,5 @@ void MinefieldClassic::modifyAdjacentCells( tCellModifyingMemberFunction pModify
               maxColumn = findGreaterCoordinate( centerColumn, mColumnsCount - 1 );
   for( std::size_t row = findLowerCoordinate( centerRow ); row <= maxRow; ++row )
     for( std::size_t column = findLowerCoordinate( centerColumn ); column <= maxColumn; ++column )
-      ( this->*pModifyingMemberFunction )( row, column );
+      pModifyingMemberFunction( row, column );
 }
