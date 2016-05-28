@@ -19,17 +19,16 @@ class Minefield : public CellsVector2D {
     void unflag( const std::size_t row, const std::size_t column );
   protected:
     // Chronione typedefy:
-    typedef void ( Minefield:: *tMemberFunction )( const std::size_t row, const std::size_t column );
+    typedef void ( Minefield:: *tCellModifyingMemberFunction )( const std::size_t row, const std::size_t column );
     // Konstruktor:
     Minefield( const int mineValue, const CellsVector2D &cells );
-    Minefield( const int mineValue, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Pomocniczne metody chronione:
     std::size_t findLowerCoordinate( const std::size_t coordinate, const std::size_t theLowestPossibleCoordinate = 0, const std::size_t howMuchLower = 1 ) const;
     std::size_t findGreaterCoordinate( const std::size_t coordinate, const std::size_t theGreatestPossibleCoordinate, const std::size_t howMuchGreater = 1 ) const;
-    virtual void doToEnclosingCells( tMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) = 0;
+    virtual void modifyAdjacentCells( tCellModifyingMemberFunction pCellModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) = 0;
     void incrementSingleCell( const std::size_t row, const std::size_t column );
-    void incrementEnclosingCells( const std::size_t centerRow, const std::size_t centerColumn );
-    void uncoverEnclosingCells( const std::size_t centerRow, const std::size_t centerColumn );
+    void incrementAdjacentCells( const std::size_t centerRow, const std::size_t centerColumn );
+    void uncoverAdjacentCells( const std::size_t centerRow, const std::size_t centerColumn );
     // Składowe:
     // Jeśli wartość danej komórki jest równa "wartości miny", oznacza
     // to, że ta komórka jest zaminowana. 

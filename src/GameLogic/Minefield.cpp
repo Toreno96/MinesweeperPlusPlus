@@ -2,7 +2,6 @@
 
 // Konstruktor:
 Minefield::Minefield( const int mineValue, const CellsVector2D &cells ) : CellsVector2D( cells ), mMineValue( mineValue ), mDetonated( false ) {}
-Minefield::Minefield( const int mineValue, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : Minefield( mineValue, CellsVector2D( rowsCount, columnsCount, minesCount ) ) {}
 // Destruktor:
 Minefield::~Minefield() {}
 // Gettery:
@@ -23,7 +22,7 @@ void Minefield::mine( boost::random::mt19937 &generator, const std::size_t exclu
       Cell &randomCell = mCells[ randomRow ][ randomColumn ]; 
       if( randomCell.getValue() != mMineValue ) {
         randomCell.setValue( mMineValue );
-        incrementEnclosingCells( randomRow, randomColumn );
+        incrementAdjacentCells( randomRow, randomColumn );
         --minesToDispose;
       }
     }
@@ -36,7 +35,7 @@ void Minefield::uncover( const std::size_t row, const std::size_t column ) {
   if( chosenCell.getState() == CellState::covered ) {
     chosenCell.setState( CellState::uncovered );
     if( chosenCell.getValue() == 0 )
-      uncoverEnclosingCells( row, column );
+      uncoverAdjacentCells( row, column );
     else if( chosenCell.getValue() == mMineValue )
       mDetonated = true;
   }
@@ -73,9 +72,9 @@ void Minefield::incrementSingleCell( const std::size_t row, const std::size_t co
   if( currentCell.getValue() != mMineValue )
     currentCell.incrementValue();
 }
-void Minefield::incrementEnclosingCells( const std::size_t centerRow, const std::size_t centerColumn ) {
-  doToEnclosingCells( &Minefield::incrementSingleCell, centerRow, centerColumn );
+void Minefield::incrementAdjacentCells( const std::size_t centerRow, const std::size_t centerColumn ) {
+  modifyAdjacentCells( &Minefield::incrementSingleCell, centerRow, centerColumn );
 }
-void Minefield::uncoverEnclosingCells( const std::size_t centerRow, const std::size_t centerColumn ) {
-  doToEnclosingCells( &Minefield::uncover, centerRow, centerColumn );
+void Minefield::uncoverAdjacentCells( const std::size_t centerRow, const std::size_t centerColumn ) {
+  modifyAdjacentCells( &Minefield::uncover, centerRow, centerColumn );
 }
