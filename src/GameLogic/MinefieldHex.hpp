@@ -10,5 +10,5 @@ class MinefieldHex : public MinefieldNonclassic {
     MinefieldHex( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
   protected:
     // Pomocnicze metody chronione:
-    tColumnsBoundsSet findEnclosingCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const override;
+    tColumnsBoundsSet findAdjacentCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const override;
 };
