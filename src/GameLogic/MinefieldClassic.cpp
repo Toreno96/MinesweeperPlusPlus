@@ -4,17 +4,10 @@
 MinefieldClassic::MinefieldClassic( const CellsVector2D &cells ) : Minefield( 9, cells ) {}
 MinefieldClassic::MinefieldClassic( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldClassic( CellsVector2D( rowsCount, columnsCount, minesCount ) ) {}
 // Pomocnicze metody chronione:
-void MinefieldClassic::doToEnclosingCells( tMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) {      
+void MinefieldClassic::modifyAdjacentCells( tCellModifyingMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) {      
   std::size_t maxRow = findGreaterCoordinate( centerRow, mRowsCount - 1 ),
-              maxColumn = findGreaterCoordinate( centerColumn, mColumnsCount - 1 ),
-              row = findLowerCoordinate( centerRow );
-  while( row <= maxRow ) {
-    std::size_t column = findLowerCoordinate( centerColumn );
-    while( column <= maxColumn ) {
-      // if( ( row == centerRow ) && ( column == centerColumn ) ) continue;
+              maxColumn = findGreaterCoordinate( centerColumn, mColumnsCount - 1 );
+  for( std::size_t row = findLowerCoordinate( centerRow ); row <= maxRow; ++row )
+    for( std::size_t column = findLowerCoordinate( centerColumn ); column <= maxColumn; ++column )
       ( this->*pModifyingMemberFunction )( row, column );
-      ++column;
-    }
-    ++row;
-  }
 }
