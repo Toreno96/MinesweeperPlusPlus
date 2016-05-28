@@ -6,7 +6,6 @@
 
 const std::string defaultOptionsFilename = "options.dat";
 
-enum class GameMode { classic, automatic };
 enum class CellsShape { classic, tri, hex };
 enum class BoardDifficulty { easy, normal, hard, custom };
 
@@ -14,14 +13,12 @@ class Options {
   public:
     Options();
     // Gettery:
-    GameMode getGameMode() const;
     CellsShape getCellsShape() const;
     BoardDifficulty getBoardDifficulty() const;
     std::size_t getRowsCount() const;
     std::size_t getColumnsCount() const;
     std::size_t getMinesCount() const;
     // Settery:
-    void setGameMode( const GameMode gameMode );
     void setCellsShape( const CellsShape cellsShape );
     void setBoardDifficulty( const BoardDifficulty boardDifficulty );
     void setRowsCount( const std::size_t rowsCount );
@@ -34,11 +31,10 @@ class Options {
     // konstruktorze klasy Minefield:
     CellsVector2D generateCellsVector2D() const;
   protected:
-    Options( const GameMode gameMode, const CellsShape cellsShape, const BoardDifficulty boardDifficulty, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
+    Options( const CellsShape cellsShape, const BoardDifficulty boardDifficulty, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Metody pomocnicze:
     void modifyDimensions( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Składowe:
-    GameMode mGameMode;
     CellsShape mCellsShape;
     BoardDifficulty mBoardDifficulty;
     std::size_t mRowsCount, mColumnsCount, mMinesCount;

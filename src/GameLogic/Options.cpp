@@ -1,11 +1,8 @@
 #include "options.hpp"
 
-Options::Options() : Options( GameMode::classic, CellsShape::classic, BoardDifficulty::easy, 9, 9, 10 ) {}
-Options::Options( const GameMode gameMode, const CellsShape cellsShape, const BoardDifficulty boardDifficulty, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : mGameMode( gameMode ), mCellsShape( cellsShape ), mBoardDifficulty( boardDifficulty ), mRowsCount( rowsCount ), mColumnsCount( columnsCount ), mMinesCount( minesCount ) {}
+Options::Options() : Options( CellsShape::classic, BoardDifficulty::easy, 9, 9, 10 ) {}
+Options::Options( const CellsShape cellsShape, const BoardDifficulty boardDifficulty, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : mCellsShape( cellsShape ), mBoardDifficulty( boardDifficulty ), mRowsCount( rowsCount ), mColumnsCount( columnsCount ), mMinesCount( minesCount ) {}
 // Gettery:
-GameMode Options::getGameMode() const {
-  return mGameMode;
-}
 CellsShape Options::getCellsShape() const {
   return mCellsShape;
 }
@@ -22,9 +19,6 @@ std::size_t Options::getMinesCount() const {
   return mMinesCount;
 }
 // Settery:
-void Options::setGameMode( const GameMode gameMode ) {
-  mGameMode = gameMode;
-}
 void Options::setCellsShape( const CellsShape cellsShape ) {
   mCellsShape = cellsShape;
 }
@@ -60,7 +54,6 @@ void Options::setMinesCount( const std::size_t minesCount ) {
 void Options::loadFromFile( const std::string filename ) {
   std::ifstream file( filename, std::ios::binary );
   if( file.is_open() ) {
-    mGameMode = BinaryFiles::read< GameMode >( file );
     mCellsShape = BinaryFiles::read< CellsShape >( file );
     mBoardDifficulty = BinaryFiles::read< BoardDifficulty >( file );
     mRowsCount = BinaryFiles::read< std::size_t >( file );
@@ -71,7 +64,6 @@ void Options::loadFromFile( const std::string filename ) {
 void Options::saveToFile( const std::string filename ) const {
   std::ofstream file( filename, std::ios::binary );
   if( file.is_open() ) {
-    BinaryFiles::write( file, mGameMode );
     BinaryFiles::write( file, mCellsShape );
     BinaryFiles::write( file, mBoardDifficulty );
     BinaryFiles::write( file, mRowsCount );
