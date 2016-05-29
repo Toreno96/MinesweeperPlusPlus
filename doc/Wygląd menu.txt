@@ -10,7 +10,6 @@
 
        OPTIONS
 
-    Game Mode      b:< Classic/Auto b:>
     Cells Shape        b:< Classic/Tri/Hex b:>
     Board Difficulty b:< Easy/Normal/Hard/Custom b:>
                 Rows       b:< integer b:>
@@ -22,8 +21,8 @@
 
         STATS // main
            b: // to STATS sub
-       Classic/Auto
-b:< Classic/Tri/Hex b:>
+       Classic/Tri/Hex 
+b:<  // mniejszy odstêp b:>
        RxC, n mines
     b:Back // to main menu
 
