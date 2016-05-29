@@ -16,14 +16,14 @@ class SaveManager {
     void loadFromFile( const std::string &filename = defaultSaveFilename );
     CellsVector2D load();
     // Zapisywanie stanu gry:
-    void saveToFile( const std::string &filename = defaultSaveFilename );
+    void saveToFile( const std::string &filename = defaultSaveFilename ) const;
     void save( const Minefield &minefield );
   protected:
     // Pomocnicze metody chronione:
     // Zapisywanie danych do pliku binarnego:
-    void writeFundamentalDataToBinaryFile( std::ofstream &file );
-    void writeSingleCellDataToBinaryFile( std::ofstream &file, const Cell &cell );
-    void writeCellsDataToBinaryFile( std::ofstream &file );
+    void writeFundamentalDataToBinaryFile( std::ofstream &file ) const;
+    void writeSingleCellDataToBinaryFile( std::ofstream &file, const Cell &cell ) const;
+    void writeCellsDataToBinaryFile( std::ofstream &file ) const;
     // Wczytywanie danych z pliku binarnego:
     void readFundamentalDataFromBinaryFile( std::ifstream &file );
     Cell readSingleCellFromBinaryFile( std::ifstream &file );

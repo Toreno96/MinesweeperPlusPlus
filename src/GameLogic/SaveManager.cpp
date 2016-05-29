@@ -17,20 +17,20 @@ void SaveManager::loadFromFile( const std::string &filename ) {
 CellsVector2D SaveManager::load() {
   return mCells;
 }
-void SaveManager::saveToFile( const std::string &filename ) {
+// Zapisywanie stanu gry:
+void SaveManager::saveToFile( const std::string &filename ) const {
   std::ofstream file( filename, std::ios::binary );
   if( file.is_open() ) {
     writeFundamentalDataToBinaryFile( file );
     writeCellsDataToBinaryFile( file );
   }
 }
-// Zapisywanie stanu gry:
 void SaveManager::save( const Minefield &minefield ) {
   mCells = minefield;
 }
 // Pomocnicze metody chronione:
 // Zapisywanie danych do pliku binarnego:
-void SaveManager::writeFundamentalDataToBinaryFile( std::ofstream &file ) {
+void SaveManager::writeFundamentalDataToBinaryFile( std::ofstream &file ) const {
   const std::size_t fundamentalDataSet[] = { mCells.getRowsCount(),
                                              mCells.getColumnsCount(),
                                              mCells.getMinesCount(),
@@ -39,13 +39,13 @@ void SaveManager::writeFundamentalDataToBinaryFile( std::ofstream &file ) {
     BinaryFiles::write( file, fundamentalData );
   BinaryFiles::write( file, mCells.isMined() );
 }
-void SaveManager::writeSingleCellDataToBinaryFile( std::ofstream &file, const Cell &cell ) {
+void SaveManager::writeSingleCellDataToBinaryFile( std::ofstream &file, const Cell &cell ) const {
   const int value = cell.getValue();
   const CellState state = cell.getState();
   BinaryFiles::write( file, value );
   BinaryFiles::write( file, state );
 }
-void SaveManager::writeCellsDataToBinaryFile( std::ofstream &file ) {
+void SaveManager::writeCellsDataToBinaryFile( std::ofstream &file ) const {
   for( std::size_t row = 0; row < mCells.getRowsCount(); ++row )
     for( std::size_t column = 0; column < mCells.getColumnsCount(); ++column ) {
       writeSingleCellDataToBinaryFile( file, mCells.getCell( row, column ) );
