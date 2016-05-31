@@ -31,7 +31,7 @@ void Minefield::mine( boost::random::mt19937 &generator, const std::size_t exclu
 }
 // Modyfikacja wybranych komórek pola minowego:
 void Minefield::uncover( const std::size_t row, const std::size_t column ) {
-  Cell &chosenCell = mCells[ row ][ column ]; 
+  Cell &chosenCell = mCells[ row ][ column ];
   if( chosenCell.getState() == CellState::covered ) {
     chosenCell.setState( CellState::uncovered );
     if( chosenCell.getValue() == 0 )
