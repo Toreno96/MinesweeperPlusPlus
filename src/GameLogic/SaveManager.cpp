@@ -34,6 +34,7 @@ void SaveManager::writeFundamentalDataToBinaryFile( std::ofstream &file ) const 
   const std::size_t fundamentalDataSet[] = { mCells.getRowsCount(),
                                              mCells.getColumnsCount(),
                                              mCells.getMinesCount(),
+                                             mCells.getUncoveredCellsCount(),
                                              mCells.getUsedFlags() };
   for( auto fundamentalData : fundamentalDataSet )
     BinaryFiles::write( file, fundamentalData );
@@ -54,11 +55,12 @@ void SaveManager::writeCellsDataToBinaryFile( std::ofstream &file ) const {
 // Wczytywanie danych z pliku binarnego:
 void SaveManager::readFundamentalDataFromBinaryFile( std::ifstream &file ) {
   const std::size_t rowsCount = BinaryFiles::read< std::size_t >( file ),
-              columnsCount = BinaryFiles::read< std::size_t >( file ),
-              minesCount = BinaryFiles::read< std::size_t >( file ),
-              usedFlags = BinaryFiles::read< std::size_t >( file );
+                    columnsCount = BinaryFiles::read< std::size_t >( file ),
+                    minesCount = BinaryFiles::read< std::size_t >( file ),
+                    uncoveredCellsCount = BinaryFiles::read< std::size_t >( file ),
+                    usedFlags = BinaryFiles::read< std::size_t >( file );
   const bool mined = BinaryFiles::read< bool >( file );              
-  mCells = CellsVector2D( rowsCount, columnsCount, minesCount, usedFlags, mined );
+  mCells = CellsVector2D( rowsCount, columnsCount, minesCount, uncoveredCellsCount, usedFlags, mined );
 }
 Cell SaveManager::readSingleCellFromBinaryFile( std::ifstream &file ) {
   int value = BinaryFiles::read< int >( file );
