@@ -31,20 +31,19 @@ void HighScores::addScore( const unsigned scoreInSeconds, const Options &current
   }
 }
 // Obsługa plików:
-void HighScores::loadFromFile( const std::string &filename ) {}
+void HighScores::loadFromFile( const std::string &filename ) {
+  std::ifstream file( filename, std::ios::binary );
+  if( file.is_open() ) {
+    readCategoriesFromFile( file );
+    readSingleCategoryScoresFromFile( file );
+  }
+}
 void HighScores::saveToFile( const std::string &filename ) const {
   std::ofstream file( filename, std::ios::binary );
   if( file.is_open() ) {
-    BinaryFiles::write< std::size_t >( file, mCategories.size() );
-    for( auto &category : mCategories )
-      BinaryFiles::write< std::string >( file, category );
-    
-    for( auto &singleCategoryScores : mScores ) {
-      BinaryFiles::write< std::size_t >( file, singleCategoryScores.size() );
-      for( auto score : singleCategoryScores )
-        BinaryFiles::write< unsigned >( file, score );
-    }
-  } 
+    writeCategoriesToFile( file );
+    writeSingleCategoryScoresToFile( file );
+  }
 }
 // Chronione metody pomocnicze:
 void HighScores::addScoreToNewCategory( const unsigned scoreInSeconds, const std::string &currentOptionsAsString ) {
@@ -96,4 +95,31 @@ std::string HighScores::convertScoresToString( const std::size_t indexOfCategory
     scoresAsString += std::to_string( score ) + '\n';
   deleteLastCharacter( scoresAsString );
   return scoresAsString;
+}
+void HighScores::readCategoriesFromFile( std::ifstream &file ) {
+  auto categoriesCount = BinaryFiles::read< std::size_t >( file );
+  mCategories = std::vector< std::string >( categoriesCount );
+  for( auto &category : mCategories )
+    category = BinaryFiles::read( file );
+}
+void HighScores::readSingleCategoryScoresFromFile( std::ifstream &file ) {
+  mScores = std::vector< std::vector< unsigned > >( mCategories.size() );
+  for( auto &singleCategoryScores : mScores ) {
+    auto currentSingleCategoryScoresCount = BinaryFiles::read< std::size_t >( file );
+    singleCategoryScores = std::vector< unsigned >( currentSingleCategoryScoresCount );
+    for( auto &score : singleCategoryScores )
+      score = BinaryFiles::read< unsigned >( file );
+  }
+}
+void HighScores::writeCategoriesToFile( std::ofstream &file ) const {
+  BinaryFiles::write( file, mCategories.size() );
+  for( auto &category : mCategories )
+    BinaryFiles::write( file, category );
+}
+void HighScores::writeSingleCategoryScoresToFile( std::ofstream &file ) const {
+  for( auto &singleCategoryScores : mScores ) {
+    BinaryFiles::write( file, singleCategoryScores.size() );
+    for( auto score : singleCategoryScores )
+      BinaryFiles::write( file, score );
+  }
 }

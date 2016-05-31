@@ -19,8 +19,8 @@ class HighScores {
     // Dodawanie nowego wyniku:
     void addScore( const unsigned scoreInSeconds, const Options &currentOptions );
     // Obsługa plików:
-    void loadFromFile( const std::string &filename = defaultHighScoresFilename ); // TO-DO
-    void saveToFile( const std::string &filename = defaultHighScoresFilename ) const; // TO-DO (podział na mniejsze funkcje)
+    void loadFromFile( const std::string &filename = defaultHighScoresFilename );
+    void saveToFile( const std::string &filename = defaultHighScoresFilename ) const;
   private:
     // Chronione metody pomocnicze:
     void addScoreToNewCategory( const unsigned scoreInSeconds, const std::string &currentOptions );
@@ -30,6 +30,10 @@ class HighScores {
     std::string convertCountsToString( const Options &options ) const;
     std::string convertOptionsToString( const Options &options ) const;
     std::string convertScoresToString( const std::size_t indexOfCategory ) const;
+    void readCategoriesFromFile( std::ifstream &file );
+    void readSingleCategoryScoresFromFile( std::ifstream &file );
+    void writeCategoriesToFile( std::ofstream &file ) const;
+    void writeSingleCategoryScoresToFile( std::ofstream &file ) const;
     // Składowe:
     std::vector< std::string > mCategories;
     std::vector< std::vector< unsigned > > mScores;
