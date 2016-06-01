@@ -11,7 +11,7 @@ class MinefieldNonclassic : public Minefield {
     typedef std::array< std::size_t, 2 > tCoordinateBounds;
     typedef std::array< tCoordinateBounds, 3 > tColumnsBoundsSet;
     // Konstruktory:
-    MinefieldNonclassic( const int mineValue, const CellsVector2D &cells );
+    MinefieldNonclassic( const int mineValue, const MinefieldData &cells );
     MinefieldNonclassic( const int mineValue, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Pomocnicze metody chronione:
     tCoordinateBounds findAdjacentCellsRowsBounds( const std::size_t centerRow ) const;

@@ -71,10 +71,10 @@ void Options::saveToFile( const std::string filename ) const {
     BinaryFiles::write( file, mMinesCount );
   }
 }  
-// Generowanie CellsVector2D, do wygodnego użycia w odpowiednim
+// Generowanie MinefieldData, do wygodnego użycia w odpowiednim
 // konstruktorze klasy Minefield:
-CellsVector2D Options::generateCellsVector2D() const {
-  return CellsVector2D( mRowsCount, mColumnsCount, mMinesCount );
+MinefieldData Options::generateMinefieldData() const {
+  return MinefieldData( mRowsCount, mColumnsCount, mMinesCount );
 }
 // Metody pomocnicze:
 void Options::modifyDimensions( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) {

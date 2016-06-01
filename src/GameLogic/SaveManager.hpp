@@ -14,7 +14,7 @@ class SaveManager {
     bool isSaveDataLoadedFromFile();
     // Wczytywanie stanu gry:
     void loadFromFile( const std::string &filename = defaultSaveFilename );
-    CellsVector2D load();
+    MinefieldData load();
     // Zapisywanie stanu gry:
     void saveToFile( const std::string &filename = defaultSaveFilename ) const;
     void save( const Minefield &minefield );
@@ -29,6 +29,6 @@ class SaveManager {
     Cell readSingleCellFromBinaryFile( std::ifstream &file );
     void readCellsFromBinaryFile( std::ifstream &file );
     // Składowe:
-    CellsVector2D mCells;
+    MinefieldData mCells;
     bool mSaveDataLoadedFromFile;
 };

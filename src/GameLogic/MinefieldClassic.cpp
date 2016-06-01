@@ -1,8 +1,8 @@
 #include "MinefieldClassic.hpp"
 
 // Konstruktor:
-MinefieldClassic::MinefieldClassic( const CellsVector2D &cells ) : Minefield( 9, cells ) {}
-MinefieldClassic::MinefieldClassic( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldClassic( CellsVector2D( rowsCount, columnsCount, minesCount ) ) {}
+MinefieldClassic::MinefieldClassic( const MinefieldData &cells ) : Minefield( 9, cells ) {}
+MinefieldClassic::MinefieldClassic( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldClassic( MinefieldData( rowsCount, columnsCount, minesCount ) ) {}
 // Pomocnicze metody chronione:
 void MinefieldClassic::modifyAdjacentCells( tCellModifyingMemberFunction pModifyingMemberFunction, const std::size_t centerRow, const std::size_t centerColumn ) {      
   std::size_t maxRow = findGreaterCoordinate( centerRow, mRowsCount - 1 ),

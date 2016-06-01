@@ -1,7 +1,7 @@
 #include "Minefield.hpp"
 
 // Konstruktor:
-Minefield::Minefield( const int mineValue, const CellsVector2D &cells ) : CellsVector2D( cells ), mMineValue( mineValue ), mDetonated( false ) {}
+Minefield::Minefield( const int mineValue, const MinefieldData &cells ) : MinefieldData( cells ), mMineValue( mineValue ), mDetonated( false ) {}
 // Destruktor:
 Minefield::~Minefield() {}
 // Gettery:
@@ -42,16 +42,16 @@ void Minefield::uncover( const std::size_t row, const std::size_t column ) {
 }
 void Minefield::flag( const std::size_t row, const std::size_t column ) {
   Cell &chosenCell = mCells[ row ][ column ]; 
-  if( ( mUsedFlags < mMinesCount ) && ( chosenCell.getState() == CellState::covered ) ) {
+  if( ( mUsedFlagsCount < mMinesCount ) && ( chosenCell.getState() == CellState::covered ) ) {
     chosenCell.setState( CellState::flagged );
-    ++mUsedFlags;
+    ++mUsedFlagsCount;
   }
 }
 void Minefield::unflag( const std::size_t row, const std::size_t column ) {
   Cell &chosenCell = mCells[ row ][ column ]; 
   if( chosenCell.getState() == CellState::flagged ) {
     chosenCell.setState( CellState::covered );
-    --mUsedFlags;
+    --mUsedFlagsCount;
   }
 }
 // Pomocniczne metody chronione:

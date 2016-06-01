@@ -3,9 +3,9 @@
 #include <functional>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
-#include "CellsVector2D.hpp"
+#include "MinefieldData.hpp"
 
-class Minefield : public CellsVector2D {
+class Minefield : public MinefieldData {
   public:
     // Destruktor:
     virtual ~Minefield();
@@ -16,13 +16,13 @@ class Minefield : public CellsVector2D {
     void mine( boost::random::mt19937 &generator, const std::size_t excludedRow, const std::size_t excludedColumn );
     // Modyfikacja wybranych komórek pola minowego:
     void uncover( const std::size_t row, const std::size_t column );
-    virtual void flag( const std::size_t row, const std::size_t column );
+    void flag( const std::size_t row, const std::size_t column );
     void unflag( const std::size_t row, const std::size_t column );
   protected:
     // Chronione typedefy:
     typedef std::function< void( const std::size_t, const std::size_t ) > tCellModifyingMemberFunction;
     // Konstruktor:
-    Minefield( const int mineValue, const CellsVector2D &cells );
+    Minefield( const int mineValue, const MinefieldData &cells );
     // Pomocniczne metody chronione:
     std::size_t findLowerCoordinate( const std::size_t coordinate, const std::size_t theLowestPossibleCoordinate = 0, const std::size_t howMuchLower = 1 ) const;
     std::size_t findGreaterCoordinate( const std::size_t coordinate, const std::size_t theGreatestPossibleCoordinate, const std::size_t howMuchGreater = 1 ) const;

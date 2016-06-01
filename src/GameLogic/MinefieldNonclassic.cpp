@@ -1,8 +1,8 @@
 #include "MinefieldNonclassic.hpp"
 
 // Konstruktory:
-MinefieldNonclassic::MinefieldNonclassic( const int mineValue, const CellsVector2D &cells ) : Minefield( mineValue, cells ) {}
-MinefieldNonclassic::MinefieldNonclassic( const int mineValue, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldNonclassic( mineValue, CellsVector2D( rowsCount, columnsCount, minesCount ) ) {}
+MinefieldNonclassic::MinefieldNonclassic( const int mineValue, const MinefieldData &cells ) : Minefield( mineValue, cells ) {}
+MinefieldNonclassic::MinefieldNonclassic( const int mineValue, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldNonclassic( mineValue, MinefieldData( rowsCount, columnsCount, minesCount ) ) {}
 // Pomocnicze metody chronione:
 MinefieldNonclassic::tCoordinateBounds MinefieldNonclassic::findAdjacentCellsRowsBounds( const std::size_t centerRow ) const {
   std::size_t minRow = findLowerCoordinate( centerRow ),

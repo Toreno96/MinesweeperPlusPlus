@@ -6,7 +6,7 @@
 // w kształcie trójkątów.
 class MinefieldTri : public MinefieldNonclassic {
   public:
-    MinefieldTri( const CellsVector2D &cells );
+    MinefieldTri( const MinefieldData &cells );
     MinefieldTri( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
   protected:
     // Pomocnicze metody chronione:

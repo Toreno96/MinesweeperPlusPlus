@@ -1,8 +1,8 @@
 #include "MinefieldTri.hpp"
 
 // Konstruktor:
-MinefieldTri::MinefieldTri( const CellsVector2D &cells ) : MinefieldNonclassic( 13, cells ) {}
-MinefieldTri::MinefieldTri( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldTri( CellsVector2D( rowsCount, columnsCount, minesCount ) ) {}
+MinefieldTri::MinefieldTri( const MinefieldData &cells ) : MinefieldNonclassic( 13, cells ) {}
+MinefieldTri::MinefieldTri( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : MinefieldTri( MinefieldData( rowsCount, columnsCount, minesCount ) ) {}
 // Pomocnicze metody chronione:
 MinefieldTri::tColumnsBoundsSet MinefieldTri::findAdjacentCellsColumnsBounds( const std::size_t centerRow, const std::size_t centerColumn ) const {
   std::size_t minColumnTop, maxColumnTop,

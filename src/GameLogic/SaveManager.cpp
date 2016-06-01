@@ -14,7 +14,7 @@ void SaveManager::loadFromFile( const std::string &filename ) {
     mSaveDataLoadedFromFile = true;
   }
 }
-CellsVector2D SaveManager::load() {
+MinefieldData SaveManager::load() {
   return mCells;
 }
 // Zapisywanie stanu gry:
@@ -35,7 +35,7 @@ void SaveManager::writeFundamentalDataToBinaryFile( std::ofstream &file ) const 
                                              mCells.getColumnsCount(),
                                              mCells.getMinesCount(),
                                              mCells.getUncoveredCellsCount(),
-                                             mCells.getUsedFlags() };
+                                             mCells.getUsedFlagsCount() };
   for( auto fundamentalData : fundamentalDataSet )
     BinaryFiles::write( file, fundamentalData );
   BinaryFiles::write( file, mCells.isMined() );
@@ -58,9 +58,9 @@ void SaveManager::readFundamentalDataFromBinaryFile( std::ifstream &file ) {
                     columnsCount = BinaryFiles::read< std::size_t >( file ),
                     minesCount = BinaryFiles::read< std::size_t >( file ),
                     uncoveredCellsCount = BinaryFiles::read< std::size_t >( file ),
-                    usedFlags = BinaryFiles::read< std::size_t >( file );
+                    usedFlagsCount = BinaryFiles::read< std::size_t >( file );
   const bool mined = BinaryFiles::read< bool >( file );              
-  mCells = CellsVector2D( rowsCount, columnsCount, minesCount, uncoveredCellsCount, usedFlags, mined );
+  mCells = MinefieldData( rowsCount, columnsCount, minesCount, uncoveredCellsCount, usedFlagsCount, mined );
 }
 Cell SaveManager::readSingleCellFromBinaryFile( std::ifstream &file ) {
   int value = BinaryFiles::read< int >( file );

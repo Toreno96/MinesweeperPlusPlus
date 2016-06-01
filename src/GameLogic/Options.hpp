@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "CellsVector2D.hpp"
+#include "MinefieldData.hpp"
 #include "HelperFunctions/BinaryFiles.hpp"
 
 const std::string defaultOptionsFilename = "options.dat";
@@ -27,9 +27,9 @@ class Options {
     // Obsługa plików:
     void loadFromFile( const std::string filename = defaultOptionsFilename ); 
     void saveToFile( const std::string filename = defaultOptionsFilename ) const;  
-    // Generowanie CellsVector2D, do wygodnego użycia w odpowiednim
+    // Generowanie MinefieldData, do wygodnego użycia w odpowiednim
     // konstruktorze klasy Minefield:
-    CellsVector2D generateCellsVector2D() const;
+    MinefieldData generateMinefieldData() const;
   protected:
     Options( const CellsShape cellsShape, const BoardDifficulty boardDifficulty, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Metody pomocnicze:

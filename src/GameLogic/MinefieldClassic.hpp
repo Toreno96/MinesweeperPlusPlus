@@ -7,7 +7,7 @@
 class MinefieldClassic : public Minefield {
   public:
     // Konstruktor:
-    MinefieldClassic( const CellsVector2D &cells );
+    MinefieldClassic( const MinefieldData &cells );
     MinefieldClassic( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
   protected:
     // Pomocnicze metody chronione:
