@@ -70,7 +70,7 @@ Cell SaveManager::readSingleCellFromBinaryFile( std::ifstream &file ) {
 void SaveManager::readCellsFromBinaryFile( std::ifstream &file ) {
   for( std::size_t row = 0; row < mCells.getRowsCount(); ++row )
     for( std::size_t column = 0; column < mCells.getColumnsCount(); ++column ) {
-      Cell &cell = mCells.getCell( row, column );
-      cell = readSingleCellFromBinaryFile( file );
+      Cell readedCell = readSingleCellFromBinaryFile( file );
+      mCells.setCell( row, column, readedCell );
     }
 }
