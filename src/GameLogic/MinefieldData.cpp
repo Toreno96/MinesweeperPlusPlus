@@ -25,12 +25,7 @@ std::size_t MinefieldData::getUsedFlagsCount() const {
 unsigned MinefieldData::getElapsedSeconds() const {
   return mElapsedSeconds;
 }
-/*
-Cell &MinefieldData::getCell( const std::size_t row, const std::size_t column ) {
-  return mCells[ row ][ column ];
-}
-*/
-const Cell &MinefieldData::getCell( const std::size_t row, const std::size_t column ) const {
+Cell MinefieldData::getCell( const std::size_t row, const std::size_t column ) const {
   return mCells[ row ][ column ];
 }
 bool MinefieldData::isMined() const {
@@ -39,4 +34,7 @@ bool MinefieldData::isMined() const {
 // Settery:
 void MinefieldData::setElapsedSeconds( unsigned elapsedSeconds ) {
   mElapsedSeconds = elapsedSeconds;
+}
+void MinefieldData::setCell( const std::size_t row, const std::size_t column, const Cell &cell ) {
+  mCells[ row ][ column ] = cell;
 }

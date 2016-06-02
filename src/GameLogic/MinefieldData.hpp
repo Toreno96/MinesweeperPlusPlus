@@ -15,11 +15,11 @@ class MinefieldData {
     std::size_t getUncoveredCellsCount() const;
     std::size_t getUsedFlagsCount() const;
     unsigned getElapsedSeconds() const;
-    //Cell &getCell( const std::size_t row, const std::size_t column );
-    const Cell &getCell( const std::size_t row, const std::size_t column ) const;
+    Cell getCell( const std::size_t row, const std::size_t column ) const;
     bool isMined() const;
     // Settery:
     void setElapsedSeconds( unsigned elapsedSeconds );
+    void setCell( const std::size_t row, const std::size_t column, const Cell &cell );
   protected:
     // Składowe:
     std::size_t mRowsCount, mColumnsCount, mMinesCount, mUncoveredCellsCount, mUsedFlagsCount;
