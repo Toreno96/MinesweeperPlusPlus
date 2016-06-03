@@ -15,24 +15,34 @@ CONFIG = debug
 
 # Compiler and linker variables.
 CXX = clang++
-CXXSTD = -std=c++11
+CXXSTD = -std=c++14
 CXXW = -Wall -Wextra -Wpedantic -Wshadow
-CXXINCLUDE =
+CXXINCLUDE = -I"D:/Programowanie/Studia/Semestr_2/JiPP/Projekt/Minesweeper++/src" -I"c:/Program Files (x86)/SFML/include" -I"C:/Boost/include/boost-1_60"
 ifeq "$(CONFIG)" "debug"
 	CXXCONFIG = -O0 -g
 else \
 ifeq "$(CONFIG)" "release"
-	CXXCONFIG = -O3 -s -DNDEBUG
+	CXXCONFIG = -O3 -DNDEBUG
 endif
 
 CXXFLAGS = -c $(CXXCONFIG) $(CXXSTD) $(CXXW) $(CXXINCLUDE)
 DEPFLAGS = -MMD -MT $@ -MF $(@:$(OBJEXT)=$(DEPEXT))
-LDFLAGS =
-LDLIBS =
+LDFLAGS = -L"C:/Program Files (x86)/SFML/lib" -L"C:/Boost/lib"
+LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
+ifeq "$(CONFIG)" "debug"
+	LDLIBS += -lboost_random-mgw53-mt-d-1_60 -lboost_system-mgw53-mt-d-1_60
+else \
+ifeq "$(CONFIG)" "release"
+	LDLIBS += -lboost_random-mgw53-mt-1_60 -lboost_system-mgw53-mt-1_60
+endif
 
 # Objects, executables, and dependencies variables, directories, etc.
-vpath %$(SRCEXT) src
-vpath %$(HDREXT) src
+vpath %$(SRCEXT) GameLogic
+vpath %$(HDREXT) GameLogic
+vpath %$(SRCEXT) GameStates
+vpath %$(HDREXT) GameStates
+vpath %$(SRCEXT) HelperFunctions
+vpath %$(HDREXT) HelperFunctions
 
 ifeq "$(CONFIG)" "debug"
 	OBJDIR = debug/build
@@ -45,7 +55,7 @@ endif
 
 OBJNAMES = $(basename $(notdir $(shell dir *$(SRCEXT) /B /S)))
 OBJ = $(addprefix $(OBJDIR)/,$(addsuffix $(OBJEXT),$(OBJNAMES)))
-EXENAME = lab8
+EXENAME = game
 EXE = $(addprefix $(EXEDIR)/,$(addsuffix $(EXEEXT),$(EXENAME)))
 DEP = $(OBJ:$(OBJEXT)=$(DEPEXT))
 
