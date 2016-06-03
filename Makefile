@@ -41,8 +41,8 @@ vpath %$(SRCEXT) GameLogic
 vpath %$(HDREXT) GameLogic
 vpath %$(SRCEXT) GameStates
 vpath %$(HDREXT) GameStates
-vpath %$(SRCEXT) HelperFunctions
-vpath %$(HDREXT) HelperFunctions
+vpath %$(SRCEXT) HelperSrc
+vpath %$(HDREXT) HelperSrc
 
 ifeq "$(CONFIG)" "debug"
 	OBJDIR = debug/build

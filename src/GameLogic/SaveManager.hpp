@@ -3,7 +3,7 @@
 #include <array>
 #include <fstream>
 #include <string>
-#include "HelperFunctions/BinaryFiles.hpp"
+#include "HelperSrc/BinaryFiles.hpp"
 #include "Minefield.hpp"
 
 const std::string defaultSaveFilename = "save.dat";

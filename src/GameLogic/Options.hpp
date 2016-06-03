@@ -2,7 +2,7 @@
 
 #include <string>
 #include "MinefieldData.hpp"
-#include "HelperFunctions/BinaryFiles.hpp"
+#include "HelperSrc/BinaryFiles.hpp"
 
 const std::string defaultOptionsFilename = "options.dat";
 

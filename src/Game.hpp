@@ -6,7 +6,7 @@
 #include "GameLogic/HighScores.hpp"
 #include "GameLogic/Options.hpp"
 #include "GameLogic/SaveManager.hpp"
-#include "HelperFunctions/GameConstants.hpp"
+#include "HelperSrc/GameConstants.hpp"
 
 class GameState;
 

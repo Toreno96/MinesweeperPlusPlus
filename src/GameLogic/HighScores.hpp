@@ -4,7 +4,7 @@
 #include <array>
 #include <string>
 #include <vector>
-#include "HelperFunctions/BinaryFiles.hpp"
+#include "HelperSrc/BinaryFiles.hpp"
 #include "Options.hpp"
 
 const std::size_t maxScoresPerCategory = 3;
