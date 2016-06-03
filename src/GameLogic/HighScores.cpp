@@ -55,11 +55,12 @@ void HighScores::addScoreToNewCategory( const unsigned scoreInSeconds, const std
 }
 void HighScores::addScoreToExistingCategory( const std::size_t categoryIndex, const unsigned scoreInSeconds ) {
   auto &currentCategoryScores = mScores[ categoryIndex ];
-  if( std::none_of( currentCategoryScores.begin(), currentCategoryScores.end(), scoreInSeconds ) ) {
+  if( std::none_of( currentCategoryScores.begin(), currentCategoryScores.end(),
+                    [ scoreInSeconds ]( const unsigned score ){
+                      return scoreInSeconds == score;
+                    } ) ) {
     currentCategoryScores.push_back( scoreInSeconds );
     std::sort( currentCategoryScores.begin(), currentCategoryScores.end() );
-    auto newEnd = std::unique( currentCategoryScores.begin(), currentCategoryScores.end() );
-    currentCategoryScores.erase( newEnd, currentCategoryScores.end() );
     if( currentCategoryScores.size() > maxScoresPerCategory )
       currentCategoryScores.resize( maxScoresPerCategory );
     mNewHighScore = true;
@@ -100,7 +101,7 @@ void HighScores::readCategoriesFromFile( std::ifstream &file ) {
   auto categoriesCount = BinaryFiles::read< std::size_t >( file );
   mCategories = std::vector< std::string >( categoriesCount );
   for( auto &category : mCategories )
-    category = BinaryFiles::read( file );
+    category = BinaryFiles::read< std::string >( file );
 }
 void HighScores::readSingleCategoryScoresFromFile( std::ifstream &file ) {
   mScores = std::vector< std::vector< unsigned > >( mCategories.size() );
