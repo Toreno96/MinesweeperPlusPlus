@@ -10,8 +10,14 @@ ButtonText::ButtonText( const sf::String &string, const sf::Font &font, unsigned
 ButtonText::ButtonText( std::function< void() > buttonFunction,
                         const sf::String &string, const sf::Font &font, unsigned characterSize ) :
     ButtonText( buttonFunction,
-                true,
                 GameConstants::defaultColor, GameConstants::blue,
+                string, font, characterSize ) {}
+ButtonText::ButtonText( std::function< void() > buttonFunction,
+                        const sf::Color &defaultColor, const sf::Color &mouseoverColor,
+                        const sf::String &string, const sf::Font &font, unsigned characterSize ) :
+    ButtonText( buttonFunction,
+                true,
+                defaultColor, mouseoverColor,
                 string, font, characterSize ) {}
 ButtonText::ButtonText( std::function< void() > buttonFunction,
                         bool activated,

@@ -9,6 +9,9 @@ class ButtonText : public MouseoverText {
     ButtonText( const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
     ButtonText( std::function< void() > buttonFunction,
                 const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
+    ButtonText( std::function< void() > buttonFunction,
+                const sf::Color &defaultColor, const sf::Color &mouseoverColor,
+                const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
     
     virtual void handleInput( const sf::RenderWindow &window, const bool leftMouseButtonWasReleased );
     virtual void update() override;
