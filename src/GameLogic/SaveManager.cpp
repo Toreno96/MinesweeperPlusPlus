@@ -1,9 +1,13 @@
 #include "SaveManager.hpp"
 // Konstruktor:
-SaveManager::SaveManager() : mCells(), mSaveDataLoadedFromFile( false ) {}
+SaveManager::SaveManager() : mCells(), mActualSaveDataPresent( false ) {}
 // Gettery:
-bool SaveManager::isSaveDataLoadedFromFile() {
-  return mSaveDataLoadedFromFile;
+bool SaveManager::isActualSaveDataPresent() {
+  return mActualSaveDataPresent;
+}
+// Settery:
+void SaveManager::setActualSaveDataPresent( const bool boolean ) {
+  mActualSaveDataPresent = boolean;
 }
 // Wczytywanie stanu gry:
 void SaveManager::loadFromFile( const std::string &filename ) {
@@ -11,10 +15,11 @@ void SaveManager::loadFromFile( const std::string &filename ) {
   if( file.is_open() ) {
     readFundamentalDataFromBinaryFile( file );
     readCellsFromBinaryFile( file );
-    mSaveDataLoadedFromFile = true;
+    mActualSaveDataPresent = true;
   }
 }
 MinefieldData SaveManager::load() {
+  mActualSaveDataPresent = false;
   return mCells;
 }
 // Zapisywanie stanu gry:
@@ -27,6 +32,7 @@ void SaveManager::saveToFile( const std::string &filename ) const {
 }
 void SaveManager::save( const Minefield &minefield ) {
   mCells = minefield;
+  mActualSaveDataPresent = true;
 }
 // Pomocnicze metody chronione:
 // Zapisywanie danych do pliku binarnego:

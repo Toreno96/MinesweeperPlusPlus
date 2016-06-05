@@ -1,12 +1,14 @@
 #include "GameStates/MenuScreen.hpp"
 
 // Konstruktor:
-Game::Game() : mHighScores( HighScores() ), mOptions( Options() ), mSaveManager( SaveManager() ), mStates( std::stack< std::unique_ptr< GameState > >() ), mVideoMode( sf::VideoMode( 800, 600 ) ) {
-  pushState( std::make_unique< MenuScreen >( this ) );
-  mHighScores.loadFromFile();
-  mOptions.loadFromFile();
-  mSaveManager.loadFromFile();
-}
+Game::Game() :
+    mHighScores( HighScores() ), mOptions( Options() ), mSaveManager( SaveManager() ),
+    mFont( sf::Font() ), mVideoMode( sf::VideoMode( 800, 600 ) ),
+    mStates( std::stack< std::unique_ptr< GameState > >() ) {
+      loadDataFromFiles();
+      calculateNumericalData();
+      pushState( std::make_unique< MenuScreen >( this ) );
+    }
 // Destruktor:
 Game::~Game() {}
 // Obsługa stosu stanów:
@@ -45,6 +47,16 @@ void Game::exit() {
   mWindow.close();
 }
 // Pomocnicze metody chronione:
+void Game::loadDataFromFiles() {
+  mHighScores.loadFromFile();
+  mOptions.loadFromFile();
+  mSaveManager.loadFromFile();
+  mFont.loadFromFile( GameConstants::fontName );
+}
+void Game::calculateNumericalData() {
+  mBaseCharacterSize = mVideoMode.width / 15;
+  mBaseDistanceBetweenTextGraphics = mVideoMode.height / 24;
+}
 void Game::createWindow( sf::RenderWindow &window ) {
   sf::ContextSettings settings;
   settings.antialiasingLevel = 8;

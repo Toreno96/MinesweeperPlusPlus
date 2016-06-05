@@ -31,11 +31,16 @@ class Game {
     HighScores mHighScores;
     Options mOptions;
     SaveManager mSaveManager;
+    sf::Font mFont;
+    sf::VideoMode mVideoMode;
     sf::RenderWindow mWindow;
+    unsigned mBaseCharacterSize;
+    float mBaseDistanceBetweenTextGraphics;
   protected:
+    // Pomocnicze metody chronione:
+    void loadDataFromFiles();
+    void calculateNumericalData();
+    void createWindow( sf::RenderWindow &window );
     // Składowe chronione:
     std::stack< std::unique_ptr< GameState > > mStates;
-    sf::VideoMode mVideoMode;
-    // Pomocnicze metody chronione:
-    void createWindow( sf::RenderWindow &window );
 };

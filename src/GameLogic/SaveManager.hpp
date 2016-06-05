@@ -13,7 +13,9 @@ class SaveManager {
     // Konstruktor:
     SaveManager();
     // Gettery:
-    bool isSaveDataLoadedFromFile();
+    bool isActualSaveDataPresent();
+    // Settery:
+    void setActualSaveDataPresent( const bool boolean );
     // Wczytywanie stanu gry:
     void loadFromFile( const std::string &filename = defaultSaveFilename );
     MinefieldData load();
@@ -32,5 +34,5 @@ class SaveManager {
     void readCellsFromBinaryFile( std::ifstream &file );
     // Składowe:
     MinefieldData mCells;
-    bool mSaveDataLoadedFromFile;
+    bool mActualSaveDataPresent;
 };
