@@ -14,8 +14,6 @@ class MenuScreen : public GameState {
     void draw() override;
   protected:
     void positionButtons() override;
-    void activateContinueButton();
-    void deactivateContinueButton();
     
     // Składowe:
     bool mExited;

@@ -2,10 +2,10 @@
 
 MenuScreen::MenuScreen( Game *game ) : GameState( game ), mExited( false ),
     mTitle( game->mVideoMode, GameConstants::title, game->mFont, game->mBaseCharacterSize ),
-    mNewGameButton( "New Game", game->mFont, game->mBaseCharacterSize ),
-    mContinueButton( "Continue", game->mFont, game->mBaseCharacterSize ),
-    mOptionsButton( "Options", game->mFont, game->mBaseCharacterSize ),
-    mHighScoresButton( "High Scores", game->mFont, game->mBaseCharacterSize ),
+    mNewGameButton( [](){}, "New Game", game->mFont, game->mBaseCharacterSize ),
+    mContinueButton( [](){}, "Continue", game->mFont, game->mBaseCharacterSize ),
+    mOptionsButton( [](){}, "Options", game->mFont, game->mBaseCharacterSize ),
+    mHighScoresButton( [](){}, "High Scores", game->mFont, game->mBaseCharacterSize ),
     mExitButton( [ game ](){ game->exit(); },
                  "Exit", game->mFont, game->mBaseCharacterSize ) {
         positionButtons();
@@ -41,9 +41,9 @@ void MenuScreen::update() {
   if( mExited )
     mGame->exit();
   if( mGame->mSaveManager.isActualSaveDataPresent() )
-    activateContinueButton();
+    mContinueButton.activate();
   else
-    deactivateContinueButton();
+    mContinueButton.deactivate();
   
   mNewGameButton.update();
   mContinueButton.update();
@@ -77,12 +77,4 @@ void MenuScreen::positionButtons() {
   
   mExitButton.alignHorizontallyRelativeTo( mNewGameButton, mGame->mVideoMode );
   mExitButton.positionBelow( mHighScoresButton, mGame->mBaseDistanceBetweenTextGraphics );
-}
-void MenuScreen::activateContinueButton() {
-  mContinueButton.setButtonFunction( [](){} ); // TO-DO
-  mContinueButton.setMouseoverColor( GameConstants::blue );
-}
-void MenuScreen::deactivateContinueButton() {
-  mContinueButton.setButtonFunction( [](){} );
-  mContinueButton.setMouseoverColor( GameConstants::defaultColor );
 }
