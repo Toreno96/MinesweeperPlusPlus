@@ -1,7 +1,10 @@
 #include "ExtendedText.hpp"
 
-ExtendedText::ExtendedText() : Text() {}
-ExtendedText::ExtendedText( const sf::String &string, const sf::Font &font, unsigned characterSize ) : Text( string, font, characterSize ) {}
+ExtendedText::ExtendedText() :
+    ExtendedText( sf::String(), sf::Font() ) {}
+ExtendedText::ExtendedText( const sf::String &string, const sf::Font &font, unsigned characterSize ) :
+    Text( string, font, characterSize ) {}
+
 void ExtendedText::setPositionX( const float x ) {
   setPosition( x, getPosition().y );
 }

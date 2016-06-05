@@ -7,6 +7,7 @@ class ExtendedText : public sf::Text {
   public:
     ExtendedText();
     ExtendedText( const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
+
     void setPositionX( const float x );
     void setPositionY( const float y );
     void moveX( const float x );
