@@ -81,13 +81,44 @@ void MenuScreen::fillMainButtons() {
 }
 
 std::function< void() > MenuScreen::createNewGameFunction() {
-  return [](){};
+  return [ this ](){
+           switch( mGame->mOptions.getCellsShape() ) {
+             case CellsShape::classic: {
+               mGame->pushState( std::make_unique< PlayScreen >(
+                   mGame,
+                   std::make_unique< MinefieldClassic >( mGame->mOptions.generateMinefieldData() ),
+                   std::make_unique< DrawingMinefieldClassic >(
+                       mGame,
+                       mGame->mOptions.getRowsCount(),
+                       mGame->mOptions.getColumnsCount() ) ) );
+               break;
+             }
+             default:
+              break;
+           }
+         };
 }
 std::function< void() > MenuScreen::createContinueFunction() {
-  return [](){};
+  return [ this ](){
+           switch( mGame->mOptions.getCellsShape() ) {
+             case CellsShape::classic: {
+               mGame->pushState( std::make_unique< PlayScreen >(
+                   mGame,
+                   std::make_unique< MinefieldClassic >( mGame->mSaveManager.load() ),
+                   std::make_unique< DrawingMinefieldClassic >(
+                       mGame,
+                       mGame->mOptions.getRowsCount(),
+                       mGame->mOptions.getColumnsCount() ) ) );
+               break;
+             }
+             default:
+              break;
+           }
+         };
 }
 std::function< void() > MenuScreen::createOptionsFunction() {
   return [ this ](){
            mGame->pushState( std::make_unique< OptionsScreen >( mGame ) );
+           mGame->mSaveManager.setActualSaveDataPresent( false );
          };
 }

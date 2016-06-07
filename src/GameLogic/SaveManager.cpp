@@ -19,15 +19,16 @@ void SaveManager::loadFromFile( const std::string &filename ) {
   }
 }
 MinefieldData SaveManager::load() {
-  mActualSaveDataPresent = false;
   return mCells;
 }
 // Zapisywanie stanu gry:
 void SaveManager::saveToFile( const std::string &filename ) const {
-  std::ofstream file( filename, std::ios::binary );
-  if( file.is_open() ) {
-    writeFundamentalDataToBinaryFile( file );
-    writeCellsDataToBinaryFile( file );
+  if( mActualSaveDataPresent ) {
+    std::ofstream file( filename, std::ios::binary );
+    if( file.is_open() ) {
+      writeFundamentalDataToBinaryFile( file );
+      writeCellsDataToBinaryFile( file );
+    }
   }
 }
 void SaveManager::save( const Minefield &minefield ) {
@@ -44,6 +45,7 @@ void SaveManager::writeFundamentalDataToBinaryFile( std::ofstream &file ) const 
                                              mCells.getUsedFlagsCount() };
   for( auto fundamentalData : fundamentalDataSet )
     BinaryFiles::write( file, fundamentalData );
+  BinaryFiles::write( file, mCells.getElapsedSeconds() );
   BinaryFiles::write( file, mCells.isMined() );
 }
 void SaveManager::writeSingleCellDataToBinaryFile( std::ofstream &file, const Cell &cell ) const {
@@ -65,8 +67,9 @@ void SaveManager::readFundamentalDataFromBinaryFile( std::ifstream &file ) {
                     minesCount = BinaryFiles::read< std::size_t >( file ),
                     uncoveredCellsCount = BinaryFiles::read< std::size_t >( file ),
                     usedFlagsCount = BinaryFiles::read< std::size_t >( file );
+  const unsigned elapsedSeconds = BinaryFiles::read< unsigned >( file );
   const bool mined = BinaryFiles::read< bool >( file );              
-  mCells = MinefieldData( rowsCount, columnsCount, minesCount, uncoveredCellsCount, usedFlagsCount, mined );
+  mCells = MinefieldData( rowsCount, columnsCount, minesCount, uncoveredCellsCount, usedFlagsCount, elapsedSeconds, mined );
 }
 Cell SaveManager::readSingleCellFromBinaryFile( std::ifstream &file ) {
   int value = BinaryFiles::read< int >( file );

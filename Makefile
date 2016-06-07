@@ -37,12 +37,16 @@ ifeq "$(CONFIG)" "release"
 endif
 
 # Objects, executables, and dependencies variables, directories, etc.
-vpath %$(SRCEXT) GameLogic
-vpath %$(HDREXT) GameLogic
-vpath %$(SRCEXT) GameStates
-vpath %$(HDREXT) GameStates
-vpath %$(SRCEXT) HelperSrc
-vpath %$(HDREXT) HelperSrc
+vpath %$(SRCEXT) src
+vpath %$(HDREXT) src
+vpath %$(SRCEXT) src/GameLogic
+vpath %$(HDREXT) src/GameLogic
+vpath %$(SRCEXT) src/GameStates
+vpath %$(HDREXT) src/GameStates
+vpath %$(SRCEXT) src/HelperSrc
+vpath %$(HDREXT) src/HelperSrc
+vpath %$(SRCEXT) src/Graphics
+vpath %$(HDREXT) src/Graphics
 
 ifeq "$(CONFIG)" "debug"
 	OBJDIR = debug/build

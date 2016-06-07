@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <stack>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include "GameLogic/HighScores.hpp"
 #include "GameLogic/Options.hpp"
@@ -34,12 +35,18 @@ class Game {
     sf::Font mFont;
     sf::VideoMode mVideoMode;
     sf::RenderWindow mWindow;
+    std::unordered_map< unsigned, sf::Texture > mClassicAndHexTextures;
+    std::unordered_map< unsigned, sf::Texture > mTriTextures;
+    std::unordered_map< unsigned, sf::Texture > mReversedTriTextures;
     unsigned mBaseCharacterSize;
     float mBaseDistanceBetweenTextGraphics;
   protected:
     // Pomocnicze metody chronione:
+    void loadTexturesFromFile( const std::string &filepath,
+                               std::unordered_map< unsigned, sf::Texture > &texturesContainer,
+                               const unsigned texturesCount );
+    void loadAllTexturesFromFiles();
     void loadDataFromFiles();
-    void calculateNumericalData();
     void createWindow( sf::RenderWindow &window );
     // Składowe chronione:
     std::stack< std::unique_ptr< GameState > > mStates;

@@ -4,9 +4,13 @@
 Game::Game() :
     mHighScores( HighScores() ), mOptions( Options() ), mSaveManager( SaveManager() ),
     mFont( sf::Font() ), mVideoMode( sf::VideoMode( 800, 600 ) ),
+    mClassicAndHexTextures( std::unordered_map< unsigned, sf::Texture >() ),
+    mTriTextures( std::unordered_map< unsigned, sf::Texture >() ),
+    mReversedTriTextures( std::unordered_map< unsigned, sf::Texture >() ),
+    mBaseCharacterSize( mVideoMode.width / 15 ),
+    mBaseDistanceBetweenTextGraphics( mVideoMode.height / 24 ),
     mStates( std::stack< std::unique_ptr< GameState > >() ) {
       loadDataFromFiles();
-      calculateNumericalData();
       pushState( std::make_unique< MenuScreen >( this ) );
     }
 // Destruktor:
@@ -48,15 +52,31 @@ void Game::exit() {
   mWindow.close();
 }
 // Pomocnicze metody chronione:
+void Game::loadTexturesFromFile( const std::string &filepath,
+                                 std::unordered_map< unsigned, sf::Texture > &texturesContainer,
+                                 const unsigned texturesCount ) {
+  for( unsigned key = 1; key <= texturesCount; ++key ) {
+    texturesContainer[ key ] = sf::Texture();
+    texturesContainer[ key ].loadFromFile( filepath + '\\' + std::to_string( key ) + ".jpg" );
+  }
+}
+void Game::loadAllTexturesFromFiles() {
+  loadTexturesFromFile( "textures\\ClassicAndHex",
+                        mClassicAndHexTextures,
+                        8 );
+  loadTexturesFromFile( "textures\\Tri",
+                        mTriTextures,
+                        12 );
+  loadTexturesFromFile( "textures\\ReversedTri",
+                        mReversedTriTextures,
+                        12 );
+}
 void Game::loadDataFromFiles() {
-  mHighScores.loadFromFile();
+  //mHighScores.loadFromFile();
   mOptions.loadFromFile();
   mSaveManager.loadFromFile();
   mFont.loadFromFile( GameConstants::fontName );
-}
-void Game::calculateNumericalData() {
-  mBaseCharacterSize = mVideoMode.width / 15;
-  mBaseDistanceBetweenTextGraphics = mVideoMode.height / 24;
+  loadAllTexturesFromFiles();
 }
 void Game::createWindow( sf::RenderWindow &window ) {
   sf::ContextSettings settings;

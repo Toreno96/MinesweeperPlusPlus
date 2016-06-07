@@ -3,7 +3,12 @@
 #include <map>
 #include "GameState.hpp"
 #include "OptionsScreen.hpp"
+#include "PlayScreen.hpp"
+#include "GameLogic/MinefieldClassic.hpp"
+#include "GameLogic/MinefieldHex.hpp"
+#include "GameLogic/MinefieldTri.hpp"
 #include "Graphics/ButtonText.hpp"
+#include "Graphics/DrawingMinefieldClassic.hpp"
 #include "Graphics/Title.hpp"
 
 class MenuScreen : public GameState {
