@@ -16,11 +16,14 @@ class MenuScreen : public GameState {
   protected:
     void positionDrawables() override;
     
+    void fillMainButtons();
+    
+    std::function< void() > createNewGameFunction();
+    std::function< void() > createContinueFunction();
+    std::function< void() > createOptionsFunction();
+    
     // Składowe:
     Title mTitle;
-    ButtonText mNewGameButton;
-    ButtonText mContinueButton;
-    ButtonText mOptionsButton;
-    ButtonText mHighScoresButton;
     ButtonText mExitButton;
+    std::unordered_map< std::string, ButtonText > mMainButtons;
 };
