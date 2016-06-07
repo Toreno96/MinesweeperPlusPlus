@@ -1,12 +1,8 @@
 #include "ButtonText.hpp"
 
 ButtonText::ButtonText() :
-    ButtonText( sf::String(), sf::Font() ) {}
-ButtonText::ButtonText( const sf::String &string, const sf::Font &font, unsigned characterSize ) :
     ButtonText( std::function< void() >(),
-                false,
-                GameConstants::deactivatedButton, GameConstants::deactivatedButton,
-                string, font, characterSize ) {}
+                sf::String(), sf::Font() ) {}
 ButtonText::ButtonText( std::function< void() > buttonFunction,
                         const sf::String &string, const sf::Font &font, unsigned characterSize ) :
     ButtonText( buttonFunction,
@@ -15,18 +11,10 @@ ButtonText::ButtonText( std::function< void() > buttonFunction,
 ButtonText::ButtonText( std::function< void() > buttonFunction,
                         const sf::Color &defaultColor, const sf::Color &mouseoverColor,
                         const sf::String &string, const sf::Font &font, unsigned characterSize ) :
-    ButtonText( buttonFunction,
-                true,
-                defaultColor, mouseoverColor,
-                string, font, characterSize ) {}
-ButtonText::ButtonText( std::function< void() > buttonFunction,
-                        bool activated,
-                        const sf::Color &defaultColor, const sf::Color &mouseoverColor,
-                        const sf::String &string, const sf::Font &font, unsigned characterSize ) :
     MouseoverText( defaultColor, mouseoverColor,
                    string, font, characterSize ),
     mButtonFunction( buttonFunction ),
-    mActivated( activated ),
+    mActivated( true ),
     mLeftClicked( false ) {}
 
 void ButtonText::handleInput( const sf::RenderWindow &window, const bool leftMouseButtonWasReleased ) {

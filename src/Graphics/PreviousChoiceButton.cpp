@@ -1,9 +1,8 @@
 #include "PreviousChoiceButton.hpp"
 
 PreviousChoiceButton::PreviousChoiceButton() :
-    PreviousChoiceButton( sf::Font() ) {}
-PreviousChoiceButton::PreviousChoiceButton( const sf::Font &font, unsigned characterSize ) :
-    ButtonText( "<", font, characterSize ) {}
+    PreviousChoiceButton( std::function< void() >(),
+                          sf::Font() ) {}
 PreviousChoiceButton::PreviousChoiceButton( std::function< void() > buttonFunction,
                                             const sf::Font &font, unsigned characterSize ) :
     PreviousChoiceButton( buttonFunction,

@@ -6,7 +6,6 @@
 class ButtonText : public MouseoverText {
   public:
     ButtonText();
-    ButtonText( const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
     ButtonText( std::function< void() > buttonFunction,
                 const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
     ButtonText( std::function< void() > buttonFunction,
@@ -20,10 +19,6 @@ class ButtonText : public MouseoverText {
     void activate();
     void deactivate();
   protected:
-    ButtonText( std::function< void() > buttonFunction,
-                bool activated,
-                const sf::Color &defaultColor, const sf::Color &mouseoverColor,
-                const sf::String &string, const sf::Font &font, unsigned characterSize = 30 );
     // Składowe:
     std::function< void() > mButtonFunction;
     bool mActivated;
