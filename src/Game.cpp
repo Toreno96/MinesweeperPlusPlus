@@ -10,7 +10,9 @@ Game::Game() :
       pushState( std::make_unique< MenuScreen >( this ) );
     }
 // Destruktor:
-Game::~Game() {}
+Game::~Game() {
+  mOptions.saveToFile();
+}
 // Obsługa stosu stanów:
 void Game::pushState( std::unique_ptr< GameState > state ) {
   mStates.push( std::move( state ) );
@@ -33,13 +35,12 @@ GameState *Game::topState() const {
 void Game::run() {
   createWindow( mWindow );
   while( mWindow.isOpen() ) {
-    GameState *pTopState = topState();
-    if( pTopState == nullptr )
+    if( topState() == nullptr )
       mWindow.close();
-    pTopState->handleInput();
-    pTopState->update();
+    topState()->handleInput();
+    topState()->update();
     mWindow.clear( sf::Color::Black );
-    pTopState->draw();
+    topState()->draw();
     mWindow.display();
   }
 }

@@ -1,15 +1,18 @@
 #include "MenuScreen.hpp"
 
-MenuScreen::MenuScreen( Game *game ) : GameState( game ), mExited( false ),
+MenuScreen::MenuScreen( Game *game ) :
+    GameState( game ),
     mTitle( game->mVideoMode, GameConstants::title, game->mFont, game->mBaseCharacterSize ),
     mNewGameButton( [](){}, "New Game", game->mFont, game->mBaseCharacterSize ),
     mContinueButton( [](){}, "Continue", game->mFont, game->mBaseCharacterSize ),
-    mOptionsButton( [](){}, "Options", game->mFont, game->mBaseCharacterSize ),
+    mOptionsButton( [ game ](){
+                      game->pushState( std::make_unique< OptionsScreen >( game ) );
+                    }, "Options", game->mFont, game->mBaseCharacterSize ),
     mHighScoresButton( [](){}, "High Scores", game->mFont, game->mBaseCharacterSize ),
     mExitButton( [ game ](){ game->exit(); },
                  "Exit", game->mFont, game->mBaseCharacterSize ) {
-        positionButtons();
-    }
+  positionDrawables();
+}
 
 void MenuScreen::handleInput() {
   sf::Event event;
@@ -38,8 +41,8 @@ void MenuScreen::handleInput() {
   mExitButton.handleInput( mGame->mWindow, leftMouseButtonClicked );
 }
 void MenuScreen::update() {
-  if( mExited )
-    mGame->exit();
+  GameState::update();
+  
   if( mGame->mSaveManager.isActualSaveDataPresent() )
     mContinueButton.activate();
   else
@@ -62,19 +65,19 @@ void MenuScreen::draw() {
   mGame->mWindow.display();
 }
 
-void MenuScreen::positionButtons() {
+void MenuScreen::positionDrawables() {
   mNewGameButton.centerHorizontally( mGame->mVideoMode );
-  mNewGameButton.positionBelow( mTitle, mGame->mBaseDistanceBetweenTextGraphics * 2 );
+  mNewGameButton.positionBelow( mTitle, 2 * mGame->mBaseDistanceBetweenTextGraphics );
   
-  mContinueButton.alignHorizontallyRelativeTo( mNewGameButton, mGame->mVideoMode );
+  mContinueButton.alignHorizontallyRelativeTo( mNewGameButton );
   mContinueButton.positionBelow( mNewGameButton, mGame->mBaseDistanceBetweenTextGraphics );
   
-  mOptionsButton.alignHorizontallyRelativeTo( mNewGameButton, mGame->mVideoMode );
+  mOptionsButton.alignHorizontallyRelativeTo( mNewGameButton );
   mOptionsButton.positionBelow( mContinueButton, mGame->mBaseDistanceBetweenTextGraphics );
   
-  mHighScoresButton.alignHorizontallyRelativeTo( mNewGameButton, mGame->mVideoMode );
+  mHighScoresButton.alignHorizontallyRelativeTo( mNewGameButton );
   mHighScoresButton.positionBelow( mOptionsButton, mGame->mBaseDistanceBetweenTextGraphics );
   
-  mExitButton.alignHorizontallyRelativeTo( mNewGameButton, mGame->mVideoMode );
+  mExitButton.alignHorizontallyRelativeTo( mNewGameButton );
   mExitButton.positionBelow( mHighScoresButton, mGame->mBaseDistanceBetweenTextGraphics );
 }

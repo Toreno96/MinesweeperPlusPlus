@@ -18,8 +18,9 @@ void ExtendedText::moveY( const float y ) {
   move( 0.f, y );
 }
 void ExtendedText::centerHorizontally( const sf::VideoMode &videoMode ) {
-  alignHorizontallyRelativeTo( *this, videoMode );
+  setPositionX( ( videoMode.width / 2 - getLocalBounds().width / 2 ) );
+
 }
 void ExtendedText::centerVertically( const sf::VideoMode &videoMode ) {
-  alignVerticallyRelativeTo( *this, videoMode );
+  setPositionY( ( videoMode.height / 2 - getLocalBounds().height / 2 ) );
 }

@@ -2,6 +2,7 @@
 
 #include <map>
 #include "GameState.hpp"
+#include "OptionsScreen.hpp"
 #include "Graphics/ButtonText.hpp"
 #include "Graphics/Title.hpp"
 
@@ -13,10 +14,9 @@ class MenuScreen : public GameState {
     void update() override;
     void draw() override;
   protected:
-    void positionButtons() override;
+    void positionDrawables() override;
     
     // Składowe:
-    bool mExited;
     Title mTitle;
     ButtonText mNewGameButton;
     ButtonText mContinueButton;

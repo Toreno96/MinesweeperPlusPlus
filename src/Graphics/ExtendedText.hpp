@@ -18,12 +18,20 @@ class ExtendedText : public sf::Text {
     void positionBelow( const ObjectWithPositionAndBounds &relativeObject, const float distanceBetween ) {
       setPositionY( relativeObject.getPosition().y + relativeObject.getLocalBounds().height + distanceBetween );
     }
-    template< class ObjectWithBounds >
-    void alignHorizontallyRelativeTo( const ObjectWithBounds &relativeObject, const sf::VideoMode &videoMode ) {
-      setPositionX( ( videoMode.width / 2 - relativeObject.getLocalBounds().width / 2 ) );
+    template< class ObjectWithPositionAndBounds >
+    void positionLeft( const ObjectWithPositionAndBounds &relativeObject, const float distanceBetween ) {
+      setPositionX( relativeObject.getPosition().x - getLocalBounds().width - distanceBetween );
+    }
+    template< class ObjectWithPositionAndBounds >
+    void positionRight( const ObjectWithPositionAndBounds &relativeObject, const float distanceBetween ) {
+      setPositionX( relativeObject.getPosition().x + relativeObject.getLocalBounds().width + distanceBetween );
     }
     template< class ObjectWithBounds >
-    void alignVerticallyRelativeTo( const ObjectWithBounds &relativeObject, const sf::VideoMode &videoMode ) {
-      setPositionY( ( videoMode.height / 2 - relativeObject.getLocalBounds().height / 2 ) );
+    void alignHorizontallyRelativeTo( const ObjectWithBounds &relativeObject ) {
+      setPositionX( relativeObject.getPosition().x );
+    }
+    template< class ObjectWithBounds >
+    void alignVerticallyRelativeTo( const ObjectWithBounds &relativeObject ) {
+      setPositionY( relativeObject.getPosition().y );
     }
 };
