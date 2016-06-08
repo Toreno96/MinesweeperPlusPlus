@@ -3,6 +3,8 @@
 #include <memory>
 #include <stack>
 #include <unordered_map>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/random_device.hpp>
 #include <SFML/Graphics.hpp>
 #include "GameLogic/HighScores.hpp"
 #include "GameLogic/Options.hpp"
@@ -29,6 +31,7 @@ class Game {
     void run();
     void exit();
     // Składowe publiczne:
+    boost::random::mt19937 mRandomGenerator;
     HighScores mHighScores;
     Options mOptions;
     SaveManager mSaveManager;
@@ -42,6 +45,7 @@ class Game {
     float mBaseDistanceBetweenTextGraphics;
   protected:
     // Pomocnicze metody chronione:
+    boost::random::mt19937 createTrueRandomSeededGenerator();
     void loadTexturesFromFile( const std::string &filepath,
                                std::unordered_map< unsigned, sf::Texture > &texturesContainer,
                                const unsigned texturesCount );

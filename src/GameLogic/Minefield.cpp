@@ -34,6 +34,7 @@ void Minefield::uncover( const std::size_t row, const std::size_t column ) {
   Cell &chosenCell = mCells[ row ][ column ];
   if( chosenCell.getState() == CellState::covered ) {
     chosenCell.setState( CellState::uncovered );
+    ++mUncoveredCellsCount;
     if( chosenCell.getValue() == 0 )
       uncoverAdjacentCells( row, column );
     else if( chosenCell.getValue() == mMineValue )

@@ -20,6 +20,9 @@ class PlayScreen : public GameState {
     
     std::function< void() > createBackToMenuFunction();
     
+    bool gameWon();
+    bool gameLost();
+    
     // Składowe:
     SecondsMeter mSecondsMeter;
     std::unique_ptr< Minefield > mMinefieldLogic;

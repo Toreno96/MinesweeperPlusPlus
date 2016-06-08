@@ -13,6 +13,7 @@ void SaveManager::setActualSaveDataPresent( const bool boolean ) {
 void SaveManager::loadFromFile( const std::string &filename ) {
   std::ifstream file( filename, std::ios::binary );
   if( file.is_open() ) {
+    //mActualSaveDataPresent = BinaryFiles::read< bool >( file );
     readFundamentalDataFromBinaryFile( file );
     readCellsFromBinaryFile( file );
     mActualSaveDataPresent = true;
@@ -26,6 +27,7 @@ void SaveManager::saveToFile( const std::string &filename ) const {
   if( mActualSaveDataPresent ) {
     std::ofstream file( filename, std::ios::binary );
     if( file.is_open() ) {
+      //BinaryFiles::write( file, mActualSaveDataPresent );
       writeFundamentalDataToBinaryFile( file );
       writeCellsDataToBinaryFile( file );
     }

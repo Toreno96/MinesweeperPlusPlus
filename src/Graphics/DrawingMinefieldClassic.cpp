@@ -14,8 +14,8 @@ void DrawingMinefieldClassic::fillDrawableCells( Game *game ) {
   for( size_t row = 0; row < mRows; ++row )
     for( size_t column = 0; column < mColumns; ++column ) {
       sf::RectangleShape square( sf::Vector2f( squareSide, squareSide ) );
-      float squarePositionX = column * squareSide;
-      float squarePositionY = row * squareSide + 3 * game->mBaseCharacterSize;
+      float squarePositionX = 1.15 * column * squareSide + squareSide;
+      float squarePositionY = 1.15 * row * squareSide + 1.5 * game->mBaseCharacterSize;
       square.setPosition( squarePositionX, squarePositionY );
       mDrawableCells[ row ].push_back( std::make_unique< sf::RectangleShape >( square ) );
     }

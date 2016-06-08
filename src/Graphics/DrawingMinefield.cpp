@@ -2,25 +2,25 @@
 
 DrawingMinefield::DrawingMinefield( std::size_t rows, std::size_t columns ) :
     mRows( rows ), mColumns( columns ),
-    mClickedRow( std::size_t() ), mClickedColumn( std::size_t() ),
+    mMouseContainingRow( std::size_t() ), mMouseContainingColumn( std::size_t() ),
     mDrawableCells( std::vector< std::vector< std::unique_ptr< sf::Shape > > >( rows ) ) {}
 DrawingMinefield::~DrawingMinefield() {}
 
-std::size_t DrawingMinefield::getClickedRow() const {
-  return mClickedRow;
+std::size_t DrawingMinefield::getMouseContainingRow() const {
+  return mMouseContainingRow;
 }
-std::size_t DrawingMinefield::getClickedColumn() const {
-  return mClickedColumn;
+std::size_t DrawingMinefield::getMouseContainingColumn() const {
+  return mMouseContainingColumn;
 }
 
-bool DrawingMinefield::isClicked( const sf::Vector2i &mousePosition ) {
+bool DrawingMinefield::contain( const sf::Vector2i &mousePosition ) {
   for( std::size_t row = 0; row < mRows; ++row )
     for( std::size_t column = 0; column < mColumns; ++column ) {
       auto &currentCell = mDrawableCells[ row ][ column ];
       if( currentCell->getGlobalBounds().contains( mousePosition.x,
                                                   mousePosition.y ) ) {
-        mClickedRow = row;
-        mClickedColumn = column;
+        mMouseContainingRow = row;
+        mMouseContainingColumn = column;
         return true;
       }
     }

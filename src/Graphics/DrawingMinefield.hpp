@@ -12,10 +12,10 @@ class DrawingMinefield {
     DrawingMinefield( std::size_t rows, std::size_t columns );
     virtual ~DrawingMinefield();
     
-    std::size_t getClickedRow() const;
-    std::size_t getClickedColumn() const;
+    std::size_t getMouseContainingRow() const;
+    std::size_t getMouseContainingColumn() const;
     
-    bool isClicked( const sf::Vector2i &mousePosition );
+    bool contain( const sf::Vector2i &mousePosition );
     void update( Game *game, Minefield *minefield );
     void draw( sf::RenderWindow &window ) const;
   protected:
@@ -28,6 +28,6 @@ class DrawingMinefield {
     virtual void fillDrawableCells( Game *game ) = 0;
     // Składowe:
     std::size_t mRows, mColumns,
-                mClickedRow, mClickedColumn;
+                mMouseContainingRow, mMouseContainingColumn;
     std::vector< std::vector< std::unique_ptr< sf::Shape > > > mDrawableCells;
 };

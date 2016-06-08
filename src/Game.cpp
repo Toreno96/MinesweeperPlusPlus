@@ -2,6 +2,7 @@
 
 // Konstruktor:
 Game::Game() :
+    mRandomGenerator( createTrueRandomSeededGenerator() ),
     mHighScores( HighScores() ), mOptions( Options() ), mSaveManager( SaveManager() ),
     mFont( sf::Font() ), mVideoMode( sf::VideoMode( 800, 600 ) ),
     mClassicAndHexTextures( std::unordered_map< unsigned, sf::Texture >() ),
@@ -16,6 +17,7 @@ Game::Game() :
 // Destruktor:
 Game::~Game() {
   mOptions.saveToFile();
+  mSaveManager.saveToFile();
 }
 // Obsługa stosu stanów:
 void Game::pushState( std::unique_ptr< GameState > state ) {
@@ -52,6 +54,10 @@ void Game::exit() {
   mWindow.close();
 }
 // Pomocnicze metody chronione:
+boost::random::mt19937 Game::createTrueRandomSeededGenerator() {
+  boost::random::random_device trueRandomGenerator;
+  return boost::random::mt19937( trueRandomGenerator() );
+}
 void Game::loadTexturesFromFile( const std::string &filepath,
                                  std::unordered_map< unsigned, sf::Texture > &texturesContainer,
                                  const unsigned texturesCount ) {

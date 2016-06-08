@@ -18,7 +18,7 @@ namespace GameConstants {
   const std::size_t minRowsCount = 9;
   const std::size_t minColumnsCount = 9;
   const std::size_t minMinesCount = 10;
-  const std::size_t maxRowsCount = 24;
-  const std::size_t maxColumnsCount = 30;
+  const std::size_t maxRowsCount = 22;
+  const std::size_t maxColumnsCount = 33;
   
 } // namespace GameConstants
