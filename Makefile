@@ -28,6 +28,9 @@ endif
 CXXFLAGS = -c $(CXXCONFIG) $(CXXSTD) $(CXXW) $(CXXINCLUDE)
 DEPFLAGS = -MMD -MT $@ -MF $(@:$(OBJEXT)=$(DEPEXT))
 LDFLAGS = -L"C:/Program Files (x86)/SFML/lib" -L"C:/Boost/lib"
+ifeq "$(CONFIG)" "release"
+	LDFLAGS += -mwindows
+endif
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
 ifeq "$(CONFIG)" "debug"
 	LDLIBS += -lboost_random-mgw53-mt-d-1_60 -lboost_system-mgw53-mt-d-1_60
