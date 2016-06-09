@@ -1,6 +1,7 @@
 #include "DrawingMinefield.hpp"
 
-DrawingMinefield::DrawingMinefield( std::size_t rows, std::size_t columns ) :
+DrawingMinefield::DrawingMinefield( Game *game, std::size_t rows, std::size_t columns ) :
+    mGame( game ),
     mRows( rows ), mColumns( columns ),
     mMouseContainingRow( std::size_t() ), mMouseContainingColumn( std::size_t() ),
     mDrawableCells( std::vector< std::vector< std::unique_ptr< sf::Shape > > >( rows ) ) {}
@@ -13,12 +14,13 @@ std::size_t DrawingMinefield::getMouseContainingColumn() const {
   return mMouseContainingColumn;
 }
 
-bool DrawingMinefield::contain( const sf::Vector2i &mousePosition ) {
+bool DrawingMinefield::containMouse() {
+  const sf::Vector2i mousePosition = sf::Mouse::getPosition( mGame->mWindow );
   for( std::size_t row = 0; row < mRows; ++row )
     for( std::size_t column = 0; column < mColumns; ++column ) {
       auto &currentCell = mDrawableCells[ row ][ column ];
       if( currentCell->getGlobalBounds().contains( mousePosition.x,
-                                                  mousePosition.y ) ) {
+                                                   mousePosition.y ) ) {
         mMouseContainingRow = row;
         mMouseContainingColumn = column;
         return true;
@@ -26,12 +28,12 @@ bool DrawingMinefield::contain( const sf::Vector2i &mousePosition ) {
     }
   return false;
 }
-void DrawingMinefield::update( Game *game, Minefield *minefield ) {
+void DrawingMinefield::update( Minefield *minefield ) {
   for( std::size_t row = 0; row < mRows; ++row )
     for( std::size_t column = 0; column < mColumns; ++column ) {
       const Cell currentCell = minefield->getCell( row, column );
       sf::Shape &currentDrawableCell = *( mDrawableCells[ row ][ column ].get() ); 
-      updateDrawableCell( game, minefield, currentCell, currentDrawableCell );
+      updateDrawableCell( minefield, currentCell, currentDrawableCell );
       }
 }
 void DrawingMinefield::draw( sf::RenderWindow &window ) const {
@@ -40,8 +42,7 @@ void DrawingMinefield::draw( sf::RenderWindow &window ) const {
       window.draw( *( uniquePtrToCell.get() ) );
 }
 
-void DrawingMinefield::updateDrawableCell( Game *game,
-                                           Minefield *minefield,
+void DrawingMinefield::updateDrawableCell( Minefield *minefield,
                                            const Cell &cell, sf::Shape &correspondingDrawableCell ) {
   switch( cell.getState() ) {
     case CellState::covered:
@@ -55,7 +56,7 @@ void DrawingMinefield::updateDrawableCell( Game *game,
       auto cellValue = cell.getValue();
       if( ( cellValue > 0 ) &&
           ( cellValue < minefield->getMineValue() ) ) {
-        updateDrawableCellTexture( game, cellValue, correspondingDrawableCell );
+        updateDrawableCellTexture( cellValue, correspondingDrawableCell );
       }
       break;
     }

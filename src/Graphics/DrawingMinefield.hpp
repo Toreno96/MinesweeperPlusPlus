@@ -9,24 +9,23 @@
 
 class DrawingMinefield {
   public:
-    DrawingMinefield( std::size_t rows, std::size_t columns );
+    DrawingMinefield( Game *game, std::size_t rows, std::size_t columns );
     virtual ~DrawingMinefield();
     
     std::size_t getMouseContainingRow() const;
     std::size_t getMouseContainingColumn() const;
     
-    bool contain( const sf::Vector2i &mousePosition );
-    void update( Game *game, Minefield *minefield );
+    bool containMouse();
+    void update( Minefield *minefield );
     void draw( sf::RenderWindow &window ) const;
   protected:
-    void updateDrawableCell( Game *game,
-                             Minefield *minefield,
+    void updateDrawableCell( Minefield *minefield,
                              const Cell &cell, sf::Shape &correspondingDrawableCell );
-    virtual void updateDrawableCellTexture( Game *game,
-                                            const int cellValue,
+    virtual void updateDrawableCellTexture( const int cellValue,
                                             sf::Shape &drawableCell ) = 0;
-    virtual void fillDrawableCells( Game *game ) = 0;
+    virtual void fillDrawableCells() = 0;
     // Składowe:
+    Game *mGame;
     std::size_t mRows, mColumns,
                 mMouseContainingRow, mMouseContainingColumn;
     std::vector< std::vector< std::unique_ptr< sf::Shape > > > mDrawableCells;
