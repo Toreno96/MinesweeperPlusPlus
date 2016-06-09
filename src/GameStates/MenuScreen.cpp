@@ -48,12 +48,10 @@ void MenuScreen::update() {
   mExitButton.update();
 }
 void MenuScreen::draw() {
-  mGame->mWindow.clear( sf::Color::Black );
   mGame->mWindow.draw( mTitle );
   mGame->mWindow.draw( mExitButton );
   for( auto &button : mMainButtons )
     mGame->mWindow.draw( button.second );
-  mGame->mWindow.display();
 }
 
 void MenuScreen::positionDrawables() {

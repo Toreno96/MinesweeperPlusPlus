@@ -53,7 +53,6 @@ void OptionsScreen::update() {
   mBackButton.update();
 }
 void OptionsScreen::draw() {
-  mGame->mWindow.clear( sf::Color::Black );
   mGame->mWindow.draw( mTitle );
   mGame->mWindow.draw( mBackButton );
   for( auto &optionName : mOptionsNames )
@@ -64,7 +63,6 @@ void OptionsScreen::draw() {
     mGame->mWindow.draw( previousOptionButton.second );
   for( auto &nextOptionButton : mNextOptionButtons )
     mGame->mWindow.draw( nextOptionButton.second );
-  mGame->mWindow.display();
 }
 
 void OptionsScreen::positionDrawables() {
