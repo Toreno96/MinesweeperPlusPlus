@@ -214,8 +214,7 @@ std::function< void() > OptionsScreen::createIncrementColumnsFunction() {
 std::function< void() > OptionsScreen::createIncrementMinesFunction() {
   return [ this ](){
            auto minesCount = mGame->mOptions.getMinesCount();
-           if( minesCount > GameConstants::minMinesCount )
-             mGame->mOptions.setMinesCount( minesCount + 1 ); 
+           mGame->mOptions.setMinesCount( minesCount + 1 ); 
          };
 }
 
