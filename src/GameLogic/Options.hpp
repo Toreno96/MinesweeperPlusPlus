@@ -37,7 +37,7 @@ class Options {
     // Metody pomocnicze:
     std::size_t calculateMaxMinesCount();
     void updateMaxMinesCount();
-    void correctMinesCountIfNeeded();
+    void correctMinesCountIfNecessary();
     void modifyDimensions( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount );
     // Składowe:
     CellsShape mCellsShape;

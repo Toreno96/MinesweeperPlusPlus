@@ -49,7 +49,7 @@ void Options::setRowsCount( const std::size_t rowsCount ) {
       && rowsCount <= GameConstants::maxRowsCount ) {
     mRowsCount = rowsCount;
     updateMaxMinesCount();
-    correctMinesCountIfNeeded();
+    correctMinesCountIfNecessary();
   }
 }
 void Options::setColumnsCount( const std::size_t columnsCount ) {
@@ -58,7 +58,7 @@ void Options::setColumnsCount( const std::size_t columnsCount ) {
       && columnsCount <= GameConstants::maxColumnsCount ) {
     mColumnsCount = columnsCount;
     updateMaxMinesCount();
-    correctMinesCountIfNeeded();
+    correctMinesCountIfNecessary();
   }
 }
 void Options::setMinesCount( const std::size_t minesCount ) {
@@ -101,7 +101,7 @@ std::size_t Options::calculateMaxMinesCount() {
 void Options::updateMaxMinesCount() {
   mMaxMinesCount = calculateMaxMinesCount();
 }
-void Options::correctMinesCountIfNeeded() {
+void Options::correctMinesCountIfNecessary() {
   if( mMinesCount > mMaxMinesCount )
     mMinesCount = mMaxMinesCount;
 }
