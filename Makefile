@@ -1,8 +1,8 @@
 # IMPORTANT:
 # 1. This Makefile was created for MinGW-w64 used on Windows 7 64-bit.
 #    Because of this, it should be compatible with any other GCC port
-#    for Windows, or even with Clang, if using headers from MinGW, but one
-#    should take into account, that other versions of Windows could require
+#    for Windows, or even with Clang if using headers from MinGW, but one
+#    should take into account that other versions of Windows could require
 #    minimal modifications (see number 4).
 #    Also, there's no guarantee it will work on other operating systems
 #    or with other compilers than the ones mentioned so far, without proper
