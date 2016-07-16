@@ -13,6 +13,9 @@
 # 4. Before using this Makefile, one should adjust
 #    CXXINCLUDE, LDFLAGS, and LDLIBS variables, if necessary.
 
+# Chosen shell.
+SHELL = CMD
+
 # Declaring file extensions.
 SRCEXT = .cpp
 HDREXT = .hpp
@@ -93,7 +96,7 @@ MKDIR = mkdir $(subst /,\,$@)
 # Fundamental rules.
 $(EXE): $(OBJ) | $(EXEDIR)
 	@echo.
-	@echo Linking object files...
+	@cecho /cyan "Linking object files..."
 	$(CXX) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
 $(OBJDIR)/%$(OBJEXT): %$(SRCEXT) | $(OBJDIR)
 	@echo.
