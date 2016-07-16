@@ -17,7 +17,7 @@ void PlayScreen::handleInput() {
   sf::Event event;
   bool leftMouseButtonClicked = false;
   bool rightMouseButtonClicked = false;
-  
+
   while( mGame->mWindow.pollEvent( event ) ) {
     switch( event.type ) {
       case sf::Event::MouseButtonReleased: {
@@ -41,7 +41,7 @@ void PlayScreen::handleInput() {
         break;
     }
   }
-  
+
   if( mMinefieldDrawing->containMouse() ) {
     std::size_t row = mMinefieldDrawing->getMouseContainingRow();
     std::size_t column = mMinefieldDrawing->getMouseContainingColumn();
@@ -68,11 +68,11 @@ void PlayScreen::handleInput() {
 void PlayScreen::update() {
   if( gameLost() ) {
     mGame->mSaveManager.setActualSaveDataPresent( false );
-    mGame->exit(); // mGame->pushState( /* GameOverScreen */ );
+    mGame->exit(); // mGame->changeState( /* GameOverScreen */ );
   }
   else if( gameWon() ) {
     mGame->mSaveManager.setActualSaveDataPresent( false );
-    mGame->popState(); // mGame->popState( /* GameWonScreen */ );
+    mGame->popState(); // mGame->changeState( /* GameWonScreen */ );
   }
   else if( mExited == true ) {
     mGame->mSaveManager.save( *( mMinefieldLogic.get() ) );
