@@ -104,7 +104,11 @@ MKDIR = mkdir $(subst /,\,$@)
 # Fundamental rules.
 $(EXE): $(OBJ) | $(EXEDIR)
 	@echo.
+ifndef ConEmuDir
+	@echo LINKING OBJECT FILES...
+else
 	@cecho /cyan "Linking object files..."
+endif
 	$(CXX) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
 $(OBJDIR)/%$(OBJEXT): %$(SRCEXT) | $(OBJDIR)
 	@echo.
