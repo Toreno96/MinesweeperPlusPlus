@@ -1,0 +1,36 @@
+  MINESWEEPER++
+
+    b:New Game
+    b:Continue
+    b:Options
+    b:Stats
+    b:Exit
+
+----
+
+       OPTIONS
+
+    Cells Shape        b:< Classic/Tri/Hex b:>
+    Board Difficulty b:< Easy/Normal/Hard/Custom b:>
+                Rows       b:< integer b:>
+                Columns b:< integer b:>
+                Mines      b:< integer b:>
+    b:Back // to main menu
+
+---
+
+        STATS // main
+           b: // to STATS sub
+       Classic/Tri/Hex
+b:<  // mniejszy odstęp b:>
+       RxC, n mines
+    b:Back // to main menu
+
+---
+
+        STATS // sub
+
+        1st score
+        2nd score
+        3rd score
+   B:Back // to STATS main

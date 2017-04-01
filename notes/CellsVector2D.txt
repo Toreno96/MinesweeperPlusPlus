@@ -1,0 +1,89 @@
+I rozwiązanie (dotychczasowe):
+
+tCellsVector2D => std::vector< std::vector< Cell > >
+Typedef, zdefiniowany w klasie Minefield (czyli dostępny tylko w jej zakresie lokalnym).
+Bezpośrednie użycie wektora wektorów w klasie Minefield, jako składowa.
+
+Algorytm zapisywania stanu gry, używany przez klasę Save:
+1. Zapisz liczbę wierszy oraz liczbę kolumn.
+2. Oblicz liczbę komórek do zapisania, poprzez liczba wierszy * liczba kolumn.
+3. Dopóki nie zapisano wszystkich komórek, wczytaj kolejną komórkę. W przeciwnym wypadku zakończ. Użycie podwójnej pętli for, do iterowania wierszy oraz kolumn, natomiast do wczytywania komórek Minefield::getCell.
+4. Zapisz do pliku wartość oraz stan komórki.
+5. Wróć do pkt. 3.
+
+Algorytm wczytywania stanu gry, używany przez klasę Save:
+1. Otwórz plik "save.dat". Jeśli się powiodło, kontynuuj, jeśli nie, zakończ.
+2. Wczytaj liczbę wierszy oraz liczbę kolumn.
+3. Stwórz... No właśnie, co? Obiekt klasy Minefield, który potem przekażesz do konstruktora kopiującego takowej klasy, w trakcie tworzenia tego właściwego, używanego w grze pola minowego? Ale to oznaczałoby trzymanie w klasie Save dużego obiektu, którego  k o p i i  będziemy używać, potrzebę zrobienia konstruktora kopiującego (a więc i, zgodnie z zasadą, również operatora przypisania i innych). No i przede wszystkim, Minefield to abstrakcyjna klasa bazowa; odpada sprawdzanie, które z pochodnych jej klas powinniśmy stworzyć, bo to wykonywane będzie na podstawie klasy Options. Save powinno być od Options niezależne.
+
+Zalety:
++ Bezpośredni dostęp do wektora wektorów w klasie Minefield.
+
+Wady:
+- Punkt 3. algorytmu wczytywania stanu gry.
+
+
+II rozwiązanie (modyfikacja I):
+
+Typedef zdefiniowany globalnie.
+Nowy konstruktor podstawowy (tj. ten z największą liczbą argumentów), przymujący dodatkowo argument typu tCellsVector2D; modyfikacja dotychczasowego konstruktora podstawowego tak, aby używał nowego.
+
+Algorytm zapisywania stanu gry, używany przez klasę Save:
+Patrz I rozwiązanie.
+
+Algorytm wczytywania stanu gry, używany przez klasę Save:
+1. Otwórz plik "save.dat". Jeśli się powiodło, kontynuuj, jeśli nie, zakończ.
+2. Wczytaj liczbę wierszy oraz liczbę kolumn.
+3. Stwórz tCellsVector2D z liczbą wczytanych wierszy oraz kolumn.
+4. Dopóki nie wczytano wszystkich komórek, ustaw wartość oraz stan aktualnej, iterując podwójną petlą for przez tCellsVector2D.
+5. Zwróć tCellsVector2D (np. do konstruktora Minefield, przyjmującego takowy wektor jako argument).
+
+Zalety:
++ Rozwiązany problem stworzenia algorytmu wczytywania stanu gry z rowiązania I.
+
+Wady:
+- Kopiowanie kodu tworzącego tCellsVector2D (w klasach Minefield oraz Save).
+
+
+III rozwiązanie:
+
+CellsVector2D jako struktura.
+struct CellsVector2D {
+  // Konstruktor:
+  CellsVector( size_t rowsCount, size_t columnsCount, size_t minesCount );
+  // Składowe:
+  std::vector< std::vector< Cell > > Cells;
+  size_t mRowsCount, mColumnsCount, mMinesCount;
+};
+
+Zalety:
++ Tam, gdzie potrzebne byłoby stworzenie obiektu powyższej struktury, dysponowalibyśmy wygodnym w użyciu konstruktorem.
++ Lekkie uporządkowanie kodu?
+
+Wady:
+- Struktura -> publiczny dostęp -> nie do końca spełniony paradygmat hermetyzacji
+
+IV rozwiązanie:
+
+Jak III, ale zamiast struktury używamy klasy oraz paradygmatu hermetyzacji.
+class CellsVector2D {
+  public:
+    // Konstruktor:
+    CellsVector( size_t rowsCount, size_t columnsCount, size_t minesCount );
+    // Gettery:
+    size_t get[Rows/Columns/Mines]Count();
+    // Przeciążone operatory:
+    std::vector< std::vector< Cell > > operator[]( size_t row );
+  private:
+    // Składowe:
+    std::vector< std::vector< Cell > > Cells;
+    size_t mRowsCount, mColumnsCount, mMinesCount;
+};
+
+Zalety:
++ Zalety rozwiązania III
++ Zachowany paradygmat hermetyzacji
+
+Wady:
+- Wymóg implementowania i używania getterów oraz (?) setterów.
+- Pełniące taką samą funkcję metody, obecne w powyższej klasie oraz klasie Minefield - get[Rows/Columns/Mines]Count, getCell(?).
