@@ -2,7 +2,7 @@
 
 // Konstruktory:
 MinefieldData::MinefieldData() : MinefieldData( 0, 0, 0 ) {}
-MinefieldData::MinefieldData( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount, std::size_t uncoveredCellsCount, unsigned elapsedSeconds, std::size_t usedFlagsCount, bool mined ) : mRowsCount( rowsCount ), mColumnsCount( columnsCount ), mMinesCount( minesCount ), mUncoveredCellsCount( uncoveredCellsCount ), mUsedFlagsCount( usedFlagsCount ), mElapsedSeconds( elapsedSeconds ), mCells( std::vector< std::vector< Cell > >( rowsCount ) ), mMined( mined ) {
+MinefieldData::MinefieldData( const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount, std::size_t uncoveredCellsCount, std::size_t usedFlagsCount, unsigned elapsedSeconds, bool mined ) : mRowsCount( rowsCount ), mColumnsCount( columnsCount ), mMinesCount( minesCount ), mUncoveredCellsCount( uncoveredCellsCount ), mUsedFlagsCount( usedFlagsCount ), mElapsedSeconds( elapsedSeconds ), mCells( std::vector< std::vector< Cell > >( rowsCount ) ), mMined( mined ) {
   for( auto &row : mCells )
     row = std::vector< Cell >( columnsCount );
 }
