@@ -36,12 +36,13 @@ CXXSTD = -std=c++14
 CXXW = -Wall -Wextra -Wpedantic -Wshadow
 CXXINCLUDE = \
 -I"src" \
--I"C:/Program Files (x86)/SFML/include" \
--I"C:/Boost/include/boost-1_60"
+-I"D:/Programowanie/Biblioteki/cpp/Boost/include/boost-1_62"
 ifeq "$(CONFIG)" "debug"
+	CXXINCLUDE += -I"D:/Programowanie/Biblioteki/cpp/SFML-2.4.1/Debug/include"
   CXXOPTIMIZATION = -O0 -g
 else \
 ifeq "$(CONFIG)" "release"
+	CXXINCLUDE += -I"D:/Programowanie/Biblioteki/cpp/SFML-2.4.1/Release/include"
   CXXOPTIMIZATION = -O3 -DNDEBUG
 endif
 CXXFLAGS = -c $(CXXOPTIMIZATION) $(CXXSTD) $(CXXW) $(CXXINCLUDE)
@@ -51,17 +52,24 @@ DEPFLAGS = -MMD -MT $@ -MF $(@:$(OBJEXT)=$(DEPEXT))
 
 # Linker flags.
 LDFLAGS = \
--L"C:/Program Files (x86)/SFML/lib" \
--L"C:/Boost/lib"
-ifeq "$(CONFIG)" "release"
-  LDFLAGS += -mwindows
-endif
-LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system
+-L"D:/Programowanie/Biblioteki/cpp/Boost/lib"
 ifeq "$(CONFIG)" "debug"
-  LDLIBS += -lboost_random-mgw53-mt-d-1_60 -lboost_system-mgw53-mt-d-1_60
+	LDFLAGS += -L"D:/Programowanie/Biblioteki/cpp/SFML-2.4.1/Debug/lib"
 else \
 ifeq "$(CONFIG)" "release"
-  LDLIBS += -lboost_random-mgw53-mt-1_60 -lboost_system-mgw53-mt-1_60
+	LDFLAGS += \
+	-L"D:/Programowanie/Biblioteki/cpp/SFML-2.4.1/Release/lib" \
+  -mwindows
+endif
+ifeq "$(CONFIG)" "debug"
+  LDLIBS = \
+	-lsfml-graphics-d -lsfml-window-d -lsfml-system-d \
+	-lboost_random-mgw62-mt-d-1_62 -lboost_system-mgw62-mt-d-1_62
+else \
+ifeq "$(CONFIG)" "release"
+	LDLIBS = \
+	-lsfml-graphics -lsfml-window -lsfml-system \
+	-lboost_random-mgw62-mt-1_62 -lboost_system-mgw62-mt-1_62
 endif
 
 # Source code directories.
