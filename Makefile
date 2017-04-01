@@ -89,7 +89,7 @@ OBJDIR = $(CONFIG)/build
 EXEDIR = $(CONFIG)/bin
 
 # Paths of any single object, dependency file, and executable.
-OBJNAMES = $(basename $(notdir $(shell dir *$(SRCEXT) /B /S)))
+OBJNAMES = $(basename $(notdir $(shell dir src\*$(SRCEXT) /B /S)))
 OBJ = $(addprefix $(OBJDIR)/,$(addsuffix $(OBJEXT),$(OBJNAMES)))
 
 DEP = $(OBJ:$(OBJEXT)=$(DEPEXT))
