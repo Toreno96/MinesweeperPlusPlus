@@ -1,4 +1,4 @@
-#include "options.hpp"
+#include "Options.hpp"
 
 Options::Options() : Options( CellsShape::classic, Difficulty::easy, 9, 9, 10 ) {}
 Options::Options( const CellsShape cellsShape, const Difficulty Difficulty, const std::size_t rowsCount, const std::size_t columnsCount, const std::size_t minesCount ) : mCellsShape( cellsShape ), mDifficulty( Difficulty ), mRowsCount( rowsCount ), mColumnsCount( columnsCount ), mMinesCount( minesCount ), mMaxMinesCount( calculateMaxMinesCount() ) {}
