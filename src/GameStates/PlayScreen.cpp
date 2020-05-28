@@ -1,4 +1,5 @@
 #include "PlayScreen.hpp"
+#include "GameOverScreen.hpp"
 
 PlayScreen::PlayScreen( Game *game,
                         std::unique_ptr< Minefield > minefieldLogic,
@@ -68,7 +69,7 @@ void PlayScreen::handleInput() {
 void PlayScreen::update() {
   if( gameLost() ) {
     mGame->mSaveManager.setActualSaveDataPresent( false );
-    mGame->exit(); // mGame->changeState( /* GameOverScreen */ );
+    mGame->changeState( std::make_unique< GameOverScreen >( mGame ) );
   }
   else if( gameWon() ) {
     mGame->mSaveManager.setActualSaveDataPresent( false );
