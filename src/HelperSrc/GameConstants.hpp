@@ -9,7 +9,7 @@ namespace GameConstants {
   const std::string fontName = "arial.ttf";
   
   // Colors RGB codes from http://www.rapidtables.com/web/color/RGB_Color.htm
-  const sf::Color defaultColor = sf::Color::White;
+  const sf::Color defaultColor = sf::Color(255, 255, 255);
   const sf::Color deactivatedButton = sf::Color	( 192, 192, 192 ); // Silver
   const sf::Color blue = sf::Color( 30, 144, 255 ); // Dodger Blue
   const sf::Color lightBlue = sf::Color( 175, 238, 238 ); // Pale Turquoise
