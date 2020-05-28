@@ -63,17 +63,17 @@ void Game::loadTexturesFromFile( const std::string &filepath,
                                  const unsigned texturesCount ) {
   for( unsigned key = 1; key <= texturesCount; ++key ) {
     texturesContainer[ key ] = sf::Texture();
-    texturesContainer[ key ].loadFromFile( filepath + '\\' + std::to_string( key ) + ".jpg" );
+    texturesContainer[ key ].loadFromFile( filepath + '/' + std::to_string( key ) + ".jpg" );
   }
 }
 void Game::loadAllTexturesFromFiles() {
-  loadTexturesFromFile( "textures\\ClassicAndHex",
+  loadTexturesFromFile( "textures/ClassicAndHex",
                         mClassicAndHexTextures,
                         8 );
-  loadTexturesFromFile( "textures\\Tri",
+  loadTexturesFromFile( "textures/Tri",
                         mTriTextures,
                         12 );
-  loadTexturesFromFile( "textures\\ReversedTri",
+  loadTexturesFromFile( "textures/ReversedTri",
                         mReversedTriTextures,
                         12 );
 }
